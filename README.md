@@ -8,7 +8,6 @@ Website should be up by Jan. 31, 2022.
 - Michaelah
 - Hannah
 
-```markdown
 ## Assignments
 A0: Create a group of 6 (on OnQ) and group website
 A1: Document the conceptual architechture
@@ -24,8 +23,6 @@ A3: Propose an enhancement, then propose and compare 2 designs / implementation 
 6. Arch. Enhancement Report [15p.] & Pres. [10'] (A3)         14+8%      8 Apr
 
 Source: Week 1 Lecture Slides and Syllabus, page 30 and 37
-```
-
 
 
 ```markdown
