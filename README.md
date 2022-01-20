@@ -12,7 +12,7 @@ Website should be up by Jan. 31, 2022.
 A0: Create a group of 6 (on OnQ) and group website \
 A1: Document the conceptual architechture \
 A2: Recover the concrete architechture and compare to the conceptual \
-A3: Propose an enhancement, then propose and compare 2 designs / implementation plans \
+A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
 
 ## Project Mark Breakdown
 1. Submit group of 6 on onQ (otherwise random)                           21 Jan 
