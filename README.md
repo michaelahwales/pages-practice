@@ -15,12 +15,18 @@ A2: Recover the concrete architechture and compare to the conceptual \
 A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
 
 ## Project Mark Breakdown
-1. Submit group of 6 on onQ (otherwise random)                           21 Jan 
-2. Create & share group website (+ group name)                  4%       31 Jan 
-3. Conceptual Arch. Report [15p.] & Pres. [10'] (A1)         14+8%       18 Feb 
-4. Concrete Arch. Report [15p.] & Pres. [10'] (A2)           14+8%       18 Mar 
-5. Arch. Enhancement (A3) - talk with your TA                    week of 21 Mar 
-6. Arch. Enhancement Report [15p.] & Pres. [10'] (A3)         14+8%      8 Apr
+1. Submit group of 6 on onQ (otherwise random)                           
+> 21 Jan 
+3. Create & share group website (+ group name)                  
+> 4%  31 Jan 
+5. Conceptual Arch. Report [15p.] & Pres. [10'] (A1)         
+> 14+8%  18 Feb 
+7. Concrete Arch. Report [15p.] & Pres. [10'] (A2)           
+> 14+8%  18 Mar 
+9. Arch. Enhancement (A3) - talk with your TA                    
+> week of 21 Mar 
+11. Arch. Enhancement Report [15p.] & Pres. [10'] (A3)         
+> 14+8%  8 Apr
 
 Source: Week 1 Lecture Slides and Syllabus, page 30 and 37
 
