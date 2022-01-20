@@ -1,3 +1,5 @@
+This website will be updated bi-weekly.
+
 ## Group Members
 
 - Michaelah
