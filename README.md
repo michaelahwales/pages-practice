@@ -1,6 +1,8 @@
 ### Group Members
 
-Michaelah, Rebecca, Ensor
+- Michaelah
+- Rebecca
+- Ensor
 
 ```markdown
 Syntax highlighted code block
