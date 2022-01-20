@@ -1,5 +1,3 @@
-## CISC326 Group 13
-
 ### Group Members
 
 Michaelah, Rebecca, Ensor
