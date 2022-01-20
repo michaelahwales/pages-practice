@@ -1,5 +1,3 @@
-Test
-
 ## Group Members
 
 - Michaelah
