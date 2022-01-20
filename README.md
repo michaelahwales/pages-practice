@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## CISC326 Group 13
 
 You can use the [editor on GitHub](https://github.com/michaelahwales/pages-practice/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
