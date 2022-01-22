@@ -1,9 +1,5 @@
 Website should be up by Jan. 31, 2022. 
 
-
-Website URL:
-https://michaelahwales.github.io/pages-practice/
-
 ## Group Members
 - Inika
 - Rebecca
