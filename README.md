@@ -2,7 +2,7 @@ Website should be up by Jan. 31, 2022.
 
 ## Group Members
 - Inika Chikarmane
-- Rebecca
+- Rebecca De Venezia
 - Rebecca Henry
 - Ensor Moriarty
 - Michaelah Wales
