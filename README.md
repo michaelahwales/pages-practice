@@ -6,7 +6,7 @@ Website should be up by Jan. 31, 2022.
 - Rebecca
 - Ensor
 - Michaelah
-- Hannah
+- Hannah Weider
 
 
 ## Related Links
