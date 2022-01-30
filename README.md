@@ -11,7 +11,7 @@ Website should be up by Jan. 31, 2022.
 
 ## Related Links
 ### Apollo Github Repository 
-https://github.com/ApolloAuto/apollo(url)
+https://github.com/ApolloAuto/apollo
 
 
 
