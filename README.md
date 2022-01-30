@@ -1,7 +1,7 @@
 Website should be up by Jan. 31, 2022. 
 
 ## Group Members
-- Inika
+- Inika Chikarmane
 - Rebecca
 - Rebecca
 - Ensor
