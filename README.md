@@ -4,7 +4,7 @@ Website should be up by Jan. 31, 2022.
 - Inika Chikarmane
 - Rebecca
 - Rebecca
-- Ensor
+- Ensor Moriarty
 - Michaelah
 - Hannah Weider
 
