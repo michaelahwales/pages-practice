@@ -5,7 +5,7 @@ Website should be up by Jan. 31, 2022.
 - Rebecca
 - Rebecca
 - Ensor Moriarty
-- Michaelah
+- Michaelah Wales
 - Hannah Weider
 
 
