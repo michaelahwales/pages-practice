@@ -72,7 +72,7 @@ for Smart Systems Through Systematic Software Analysis: https://deepblue.lib.umi
 
 ## Assignments
 
-- [ ] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
+- [X] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
 - [ ] &nbsp; A1: Document the conceptual architechture
 - [ ] &nbsp; A2: Recover the concrete architechture and compare to the conceptual
 - [ ] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
@@ -93,25 +93,3 @@ for Smart Systems Through Systematic Software Analysis: https://deepblue.lib.umi
 > 14+8%  8 Apr
 
 Source: Week 1 Lecture Slides and Syllabus, page 30 and 37
-
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-
-
