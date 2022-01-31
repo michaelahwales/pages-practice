@@ -56,7 +56,7 @@ Website should be up by Jan. 31, 2022.
 
 ## Assignments:
 
-- [X] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
+- [x] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
 - [ ] &nbsp; A1: Document the conceptual architechture
 - [ ] &nbsp; A2: Recover the concrete architechture and compare to the conceptual
 - [ ] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
