@@ -10,8 +10,37 @@ Website should be up by Jan. 31, 2022.
 
 
 ## Related Links
-### Apollo Github Repository 
+
+### Apollo Github Repository
 https://github.com/ApolloAuto/apollo
+
+### Mission Statement and Demos
+https://www.youtube.com/watch?v=UmKSiFujJiw
+
+### Group Policies
+Apollo Manifesto (Data Sharing Policies): https://apollo.auto/docs/promise.html
+
+Apollo Governance Policies: https://apollo.auto/docs/manifesto.html
+
+### Software Architecture
+Overview of software components: https://apollo.auto/developer.html
+
+Apollo's Cyber Security: https://apollo.auto/platform/security.html
+
+Inside Apollo 6.0: A Road Towards Fully Driverless Technology (Report on Company Architecture): https://medium.com/apollo-auto/inside-apollo-6-0-a-road-towards-fully-driverless-technology-522b2b4295cc 
+
+### Articles
+Concordia researchers dig deep into the software powering self-driving cars: https://www.concordia.ca/news/stories/2020/11/03/concordia-researchers-dig-deep-into-the-software-powering-self-driving-cars.html
+
+Building a self-driving car that people can trust: https://www.technologyreview.com/2020/12/16/1014672/building-a-self-driving-car-that-people-can-trust/
+
+### Tutorials
+Official development/engineering tutorial: https://apollo.auto/devcenter/devcenter.html
+
+### Simulations
+SVL Simulator by LG: https://www.youtube.com/watch?v=Ucr0aM334_k&feature=youtu.be
+
+Apollo Game Engine Based Simulator: https://apollo.auto/gamesim.html
 
 
 
