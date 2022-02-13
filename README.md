@@ -28,8 +28,8 @@ Website should be up by Jan. 31, 2022.
 ### Software Architecture:
 [Software Specifications Github Directory](https://github.com/ApolloAuto/apollo/tree/master/docs/specs)  
 [Overview of software components](https://apollo.auto/developer.html)  
-[Apollo's Cyber Security](https://apollo.auto/platform/security.html)
-[Apollo's Compatibility](https://apollo.auto/vehicle/certificate_en.html)
+[Apollo's Cyber Security](https://apollo.auto/platform/security.html)  
+[Apollo's Compatibility](https://apollo.auto/vehicle/certificate_en.html)  
 [Inside Apollo 6.0: A Road Towards Fully Driverless Technology (Report on Company Architecture)](https://medium.com/apollo-auto/inside-apollo-6-0-a-road-towards-fully-driverless-technology-522b2b4295cc)  
 [RTI brings communications software to Baidu Apollo autonomous driving ecosystem (Information Sharing)](https://www.therobotreport.com/rti-communications-software-joins-baidu-apollo-self-driving/)
 
