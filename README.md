@@ -19,7 +19,8 @@ Website should be up by Jan. 31, 2022.
 [Apollo's Mission](https://www.youtube.com/watch?v=UmKSiFujJiw)
 
 ### Demos:
-[Complete Urban Journey in a Baidu Apollo Autonomous Vehicle](https://www.youtube.com/watch?v=EY3yVgLecf0)
+[Complete Urban Journey in a Baidu Apollo Autonomous Vehicle](https://www.youtube.com/watch?v=EY3yVgLecf0)  
+[Testing Apollo Auto - DreamView Demo](https://www.youtube.com/watch?v=JWoNMFsPRH8)
 
 ### Group Policies:
 [Apollo Manifesto (Data Sharing Policies)](https://apollo.auto/docs/promise.html)  
