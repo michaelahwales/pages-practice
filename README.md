@@ -130,7 +130,7 @@ vehicle-specific implementation (more on this later).
 <h5 align="center">
   <em>The Final Conceptual Architecture</em>
 </h5>
-![conceptual architecture](/self-driving-sun-chariots/conceptual diagram_v4.png)
+![conceptual architecture](/self-driving-sun-chariots/assets/conceptual_diagram_v4.png)
 
 
 ## Related Links:
