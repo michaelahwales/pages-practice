@@ -158,6 +158,7 @@ determines how the car should operate) and a layer for the vehicle platform (the
 vehicle itself). Upon looking at Apollo Auto’s documentation, the system follows this rule by
 partitioning the software and hardware subsystems:
 
+<img src="docs/assets/apollo_developer.png" />
 <h5 align="center">
    <strong> Figure 2 </strong>: Decoupling of the cognitive driving intelligence, the vehicle 
    hardware platform, and the cloud shown in Apollo Auto’s architecture (“Apollo Open Platform”)
@@ -266,6 +267,7 @@ appears to employ generalized components of autonomous driving software. The dat
 among parts can be described primarily using Implicit Invocation and Process-Control
 architectural styles (see the Data Dictionary for full definitions of these architectures).
 
+<img src="docs/assets/behere_components.png" />
 <h5 align="center">
    <strong> Figure 3 </strong>: Functional Architectural View (FAV) of an autonomous driving system,
    from the reference architecture paper
@@ -290,6 +292,7 @@ overview page (https://apollo.auto/developer.html), we can determine which of th
 belong to the three categories of the reference architecture and create a conceptual view of how
 information will flow between them.
 
+<img src="docs/assets/apollo_developer_software.png" />
 <h5 align="center">
    <strong> Figure 4 </strong>: Apollo Modules in the Open Software Platform
 </h5>
@@ -372,8 +375,9 @@ uses a DAG graph to manage their tasks. Efficiency and parallelism is achieved t
 of the scheduler, lightweight threads, and resource management. This is depicted in figure X
 (“Apollo Cyber RT Framework”).
 
+<img src="docs/assets/apollo_cyber.png" />
 <h5 align="center">
-   <strong> Figure 5 </strong>: Centralized and Parallel computing model using        Cyber RT Framework (“Apollo Cyber RT Framework”).
+   <strong> Figure 5 </strong>: Centralized and Parallel computing model using Cyber RT Framework (“Apollo Cyber RT Framework”).
 </h5>
 
 <h4 align="center">
@@ -477,6 +481,7 @@ restricted communication with one another. The figure below outlines the broad s
 be employable, and highlights the benefits in the developmental process of using the
 Publish-Subscribe style in such a context.
 
+<img src="docs/assets/behere_pub_sub.png" />
 <h5 align="center">
    <strong> Figure 8 </strong>: Set up for division of responsibilities in the development and testing process, from the
 reference architecture paper
