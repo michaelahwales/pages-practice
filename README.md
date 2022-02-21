@@ -80,7 +80,7 @@ systems.
 
 ### CONCEPTUAL ARCHITECTURE
 <h4 align="center">
-#### DERIVATION AND HIGH-LEVEL OVERVIEW
+   DERIVATION AND HIGH-LEVEL OVERVIEW
 </h4>
 <h5 align="center">
   <em>Derivation Process</em>
@@ -130,7 +130,7 @@ vehicle-specific implementation (more on this later).
 <h5 align="center">
   <em>The Final Conceptual Architecture</em>
 </h5>
-![Tux, the Linux mascot](/assets/images/tux.png)
+![conceptual architecture](/self-driving-sun-chariots/conceptual diagram_v4.png)
 
 
 ## Related Links:
