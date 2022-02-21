@@ -130,7 +130,7 @@ vehicle-specific implementation (more on this later).
 <h5 align="center">
   <em>The Final Conceptual Architecture</em>
 </h5>
-<img src="/docs/assets/conceptual_diagram_v4.png" />
+<img src="docs/assets/conceptual_diagram_v4.png" />
 
 <h5 align="center">
    <strong> Figure 1 </strong>: Our final conceptual architecture
@@ -391,7 +391,7 @@ use-cases which demonstrate how the architecture can handle tough situations.
 <h5 align="center">
   <em>Use Case 1: Turning left when pedestrian runs into street to cross the           road</em>
 </h5>
-<img src="/docs/assets/use_case1_v2.png" />
+<img src="docs/assets/use_case1_v2.png" />
 
 <h5 align="center">
    <strong> Figure 6 </strong>: Sequence Diagram for Use Case 1
@@ -424,7 +424,7 @@ hard and come to a stop.
 <h5 align="center">
   <em>Use Case 2: Getting a flat tire while on the road</em>
 </h5>
-<img src="/docs/assets/use_case2.png" />
+<img src="docs/assets/use_case2.png" />
 
 <h5 align="center">
    <strong> Figure 7 </strong>: Sequence Diagram for Use Case 2
