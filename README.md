@@ -132,9 +132,9 @@ vehicle-specific implementation (more on this later).
 </h5>
 <img src="/docs/assets/conceptual_diagram_v4.png" />
 
-<p align="center">
+<h5 align="center">
    <strong> Figure 1 </strong>: Our final conceptual architecture
-</p>
+</h5>
 
 In order of decreasing abstraction, the architectural styles used for the final conceptual
 architecture were Client-Server, Layered, Publish-Subscribe, and Process-Control 
@@ -158,10 +158,10 @@ determines how the car should operate) and a layer for the vehicle platform (the
 vehicle itself). Upon looking at Apollo Auto’s documentation, the system follows this rule by
 partitioning the software and hardware subsystems:
 
-<p align="center">
+<h5 align="center">
    <strong> Figure 2 </strong>: Decoupling of the cognitive driving intelligence, the vehicle 
    hardware platform, and the cloud shown in Apollo Auto’s architecture (“Apollo Open Platform”)
-</p>
+</h5>
 
 As briefly previously mentioned, the decoupling of the cognitive driving intelligence and
 the vehicle platform is crucial to efficient development. The intelligence system does not have to
@@ -259,8 +259,297 @@ performance over time.
   <em>Implicit Invocation and Process-Control Architecture for Data Flow</em>
 </h5>
 
+By comparing high-level summaries of the Apollo architecture to the reference
+architecture for autonomous driving by Sagar Behere and Martin Törngren, we can derive a
+possible conceptualization of the data flow throughout the software that is based on how Apollo
+appears to employ generalized components of autonomous driving software. The data flow
+among parts can be described primarily using Implicit Invocation and Process-Control
+architectural styles (see the Data Dictionary for full definitions of these architectures).
+
+<h5 align="center">
+   <strong> Figure 3 </strong>: Functional Architectural View (FAV) of an autonomous driving system,
+   from the reference architecture paper
+</h5>
+
+The reference FAV is split into three categories: Perception (interpreting the data gathered
+using sensors), Decision and Control (controlling the vehicle with respect to the vehicle’s
+environment) and Vehicle Performance Manipulation (sensing the control of the vehicle in order
+to achieve the desired motion).
+
+In the functional reference architecture for autonomous driving by Sagar Behere and
+Martin Törngren, the “decision and control” category refers to the functional components
+involving the vehicle’s behavior and characteristics in the context of its external environment.
+The relationship between the components in these categories can be managed using
+Process-Control architecture. Data is provided by the elements of the “perception” category, and
+the elements of the “decision and control” can utilize this input to form reference values which
+will be maintained through the manipulation of variables in components of the “decision and
+control” and “vehicle platform manipulation” categories to control the vehicle.
+
+By examining high level descriptions of Apollo’s open software platform on the software
+overview page (https://apollo.auto/developer.html), we can determine which of these modules
+belong to the three categories of the reference architecture and create a conceptual view of how
+information will flow between them.
+
+<h5 align="center">
+   <strong> Figure 4 </strong>: Apollo Modules in the Open Software Platform
+</h5>
+
+Apollo’s Perception module maps to the Perception category of the reference
+architecture. “The perception module identifies the world surrounding the autonomous vehicle.”
+(Apollo 5.5)
+
+The Prediction and Planning modules in Apollo deal with the ref. component of
+Trajectory generation. The trajectory generation component involves the generation of
+obstacle-free trajectories through the vehicle’s environment (in the world coordinate system)
+(Behere and Törngren 5). The Apollo Prediction module anticipates the motion of obstacles, the
+Routing module tells the vehicle how to reach its destination, and the Planning module plans the
+vehicle’s spatio-temporal trajectory. Each of these three components receive data from the HD
+Map (a module in the cloud service platform level of Apollo’s system), and the Localization
+Modules. “The localization module leverages various information sources such as GPS, LiDAR
+and IMU to estimate where the autonomous vehicle is located.” (Apollo 5.5) The HD map
+provides structured information regarding roads.
+
+There are several Apollo modules that provide data to the “control” components. The
+control components rely on data flow from modules such as the HD Map. Components that
+require information on roads should employ the Implicit Invocation (Publish-Subscribe)
+architectural style to subscribe to events broadcast by the HD map module to receive information
+about the environment of the vehicle. This will serve as input for components in the “control”
+and “manipulation” categories when calculating reference values to maintain during
+Process-Control processes.
+
+Apollo’s control module subscribes to information broadcast by the trajectory generation
+components: “The control module executes the planned spatio-temporal trajectory by generating
+control commands such as throttle, brake, and steering.” (Apollo 5.5). This maps to the
+Trajectory Execution component described in the reference architecture (the component which
+actually executes the trajectory generated by Decision and Control).
+
+The control module publishes control information that the Guardian and CanBus modules
+use. The guardian is a safety module that intervenes in the event that the Monitor module detects
+a failure. The monitor Module surveils all the modules in the vehicle including hardware, and
+provides this data to the Guardian and Human-Machine Interface modules.
+
+The CanBus module “is the interface that passes control commands to the vehicle
+hardware. It also passes chassis information to the software system.” (Apollo 5.5).
+
+Finally, the result of this control information is sent to the Human-Machine Interface
+module. “Human Machine Interface or DreamView in Apollo is a module for viewing the status
+of the vehicle, testing other modules and controlling the functioning of the vehicle in real-time.”
+
+In this mapping of a high level Apollo system modules to the reference architecture components
+we can trace the flow of data between related components, and see where control modules
+receive their inputs, and where the control instructions will be passed between modules.
+
+<h4 align="center">
+   CONCURRENCY
+</h4>
+
+Concurrency is an incredibly important feature of countless systems, and the Apollo self
+driving system is no exception. When implemented well, tasks communicate, execute, and
+collaborate efficiently and effectively. Apollo uses it for large scale tasks like controlling speed
+and direction, or gathering, processing, and using data about the road ahead, or even performing
+all those tasks simultaneously. It also facilitates smaller scale tasks like adjusting the volume of
+the entertainment system, or changing the A.C. according to the user’s settings. In the very few
+reported cases where concurrency has been buggy in the Apollo system, it was found to have
+detrimental effects on the speed control (Garcia, et al. 7).
+
+Concurrency is dependent on the operating system, or in this case the operating platform.
+Apollo uses a centralized and parallel computing model. Apollo’s operating platform has a central component, the Apollo Cyber RT framework, that collects information from the other components and directs them. It deals with each task it’s faced with through the use of a DAG
+(directed acyclic graph) dependency graph. A DAG graph uses an algorithm that takes into
+account the “priority, running time, and resource usage” (“Introduction to Baidu Apollo Cyber
+RT, Basic Concepts and Comparison with ROS”) of each task to determine how to direct each
+task. Then, a task is placed on a queue. Which queue and where is determined by a scheduler that
+takes into account resources, time, and urgency. When it is ready to execute, a task is “executed
+as an optimized thread” (“Apollo Cyber RT Framework”) - threads being a very lightweight, and
+computationally efficient process. At runtime, when the fused sensors start collecting data and
+incorporating user-tasks, all components work together with the Apollo Cyber RT Framework to
+manage and execute tasks in parallel, led by the fused sensor input (“Apollo Cyber RT
+Framework”).
+
+Ultimately, Apollo’s conceptual architecture with regards to concurrency is grounded in
+their centralized and parallel computing model and strongly relies on the Apollo Cyber RT
+framework. It consists of multiple components, all linked together by a central component which
+uses a DAG graph to manage their tasks. Efficiency and parallelism is achieved through the use
+of the scheduler, lightweight threads, and resource management. This is depicted in figure X
+(“Apollo Cyber RT Framework”).
+
+<h5 align="center">
+   <strong> Figure 5 </strong>: Centralized and Parallel computing model using        Cyber RT Framework (“Apollo Cyber RT Framework”).
+</h5>
+
+<h4 align="center">
+   FLOW OF USAGE
+</h4>
+<h5 align="center">
+  <em>Overview</em>
+</h5>
+
+To demonstrate our conceptual architecture we made sequence diagrams depicting two
+use cases. The sequence diagrams were made using the components from our conceptual
+architecture and serve to show how they interact in real settings. We tried to pick non-trivial
+use-cases which demonstrate how the architecture can handle tough situations.
+
+<h5 align="center">
+  <em>Use Case 1: Turning left when pedestrian runs into street to cross the           road</em>
+</h5>
+<img src="/docs/assets/use_case1_v2.png" />
+
+<h5 align="center">
+   <strong> Figure 6 </strong>: Sequence Diagram for Use Case 1
+</h5>
+
+For the first use case, the scenario begins with the vehicle stopped at a red light.
+Throughout the execution of the sequence CanBus is continuously being updated with the state
+of the hardware, and the Monitor is subsequently being updated with the status of all components
+of the system. As well, Perception is being updated by the Navigation component and the
+prediction of the world around it is continually being updated through data shared between
+Perception and Prediction. These continuous processes are made clear at the top of the sequence
+diagram.
+
+Once the Perception component sees that the light has turned green, the Prediction
+component is alerted. After the Prediction component predicts that the way is clear, the Planning
+component is alerted and the Control component is called to generate commands for the vehicle.
+The commands are passed through Guardian, and CanBus relays the commands over to the
+hardware to initiate the left turn through the intersection. While the vehicle is performing the
+turn, during one of the updates to the Monitor, Prediction alerts the Monitor that a pedestrian is
+likely going to enter the road in front of them soon, based on current trajectories. (Learned
+through the constant updates to predictions of the world.) Once Monitor is alerted of this
+suspected collision, Monitor relays the information to Guardian and the HMI component, which in turn displays the concern to the driver.
+
+Once the driver is alerted, either the driver will take over and bring the vehicle to a stop,
+or the guardian prevents further commands from going through, allowing the car to slow down,
+until 10 seconds have passed without the driver intervening. If 10 seconds have passed, Guardian
+will then alert the CanBus to perform an emergency stop, which will cause the vehicle to brake
+hard and come to a stop.
+
+<h5 align="center">
+  <em>Use Case 2: Getting a flat tire while on the road</em>
+</h5>
+<img src="/docs/assets/use_case2.png" />
+
+<h5 align="center">
+   <strong> Figure 7 </strong>: Sequence Diagram for Use Case 2
+</h5>
+
+For the second use case, the scenario begins with the vehicle in motion. Again throughout
+the execution of the sequence components are continually being updated as before. The top of
+the sequence diagram shows the computations continually being performed, with new commands
+constantly being generated and passed to the Guardian component for approval.
+
+Suddenly one of the tires pops and CanBus is alerted through one of its constant
+hardware updates. The CanBus relays a message to the monitor informing it of the hardware
+error, and the monitor subsequently alerts both the Guardian and the HMI which in turn alerts the
+driver. From this point either the driver will respond and bring the vehicle to a safe stop, or the
+Guardian will take over. If the driver fails to respond, the Guardian will attempt to bring the car
+to a safe stop. The Guardian requests information from the Monitor to learn about its
+surroundings and if the sensors are functioning and there are no obstacles, it alerts the CanBus to
+bring the vehicle to a slow stop. Otherwise if it can’t confirm that a slow stop is possible, it will
+alert the CanBus to perform an emergency stop.
+
+<h4 align="center">
+   DIVISION OF RESPONSIBILITIES
+</h4>
+
+The layered architecture style used acknowledges that the system’s technical
+implementation is broadly separated on the basis of the cognitive driving functions and the
+vehicle platform functions (Behere & Törngren, 2016). Within this however, the layered style
+allows for each of the layers to be implemented by a different team, and gives them the freedom
+of allowing them to make their own decisions regarding specifics like programming style,
+technology stacks and tools used.
+
+Control engineers interestingly are allowed to have less coding-focused roles and more
+algorithmic focused concerns. They use tools that enable them to execute models without having
+to consider the minutiae like memory allocation. This allows them to test and verify their
+algorithms.
+
+Embedded systems programmers would be employed in order to handle concerns related
+to program efficiency, and keeping it conservative and real-time. They are also concerned with
+the scheduling of tasks, interrupt handlers, input and output, etc.
+The control engineers and embedded systems programmers together usually implement
+the different components in the vehicle. Simultaneously, the cognitive driving intelligence related
+components would be implemented by computer scientists.
+
+A major benefit of the architectural styles employed is that the different components
+(HMI, Hardware, Monitor, Navigation, Perception, Prediction, Planning, Control, Guardian, and
+CanBus) are enabled to be developed and appropriately tested independently. This strongly
+supports the notion of this being an open-source project, as otherwise, this can be harder to
+implement because of the independence and sheer number of developers that often have
+restricted communication with one another. The figure below outlines the broad setup that would
+be employable, and highlights the benefits in the developmental process of using the
+Publish-Subscribe style in such a context.
+
+<h5 align="center">
+   <strong> Figure 8 </strong>: Set up for division of responsibilities in the development and testing process, from the
+reference architecture paper
+</h5>
+
+### CONCLUSION
+<h4 align="center">
+   SUMMARY OF FINDINGS
+</h4>
+In summary, our Apollo Auto architecture uses Client-Server, Layered,
+Publish-Subscribe, and Process-Control styles. This allows the system to maintain the vehicle’s
+safety, divide its components into logical tasks that are independent of one another, react quickly
+to the environment, and continuously evolve by learning and improving models. We also found
+that the Apollo system uses a centralized and parallel computing model to maintain concurrency
+which facilitates large and small scale tasks such as speed and volume control, respectively. By
+developing two use cases we were able to successfully demonstrate how our derived conceptual
+architecture would perform in real settings. Moving forwards, we will use our understanding of
+the conceptual architecture of Apollo to construct its concrete architecture.
+
+<h4 align="center">
+   LESSONS LEARNED
+</h4>
+One of the biggest things we learned was coming to an understanding of what is
+conceptual versus concrete architecture. We realized that when we had begun our project, we had
+focused more on details relevant to the concrete architecture. We later had to revisit our initial
+ideas and change information in our report, referring more to other high-level documents and
+reference architecture. This understanding, however, will be helpful in the next assignment when
+we expand the conceptual architecture to derive the concrete details of the systems.
+
+### DATA DICTIONARY
+<h4 align="center">
+   ARCHITECTURE STYLES
+</h4>
+
+##### *Client-Server Architecture*
+
+A Client-Server architecture style is used when an application requires “distributed data
+and processing across a range of components” (Adams). The style partitions components
+into servers and clients. Servers remotely provide a service such as making a connection
+or making changes to a database to clients that require that service. Clients connect to
+servers through networks.
 
 
+##### *Layered Architecture*
+
+A Layered architecture style is used when the services of the system can be divided into
+hierarchies that mimic Client-Server style, as each layer of the hierarchy acts as the
+server to the layer above. Layered style is exceptional at highlighting the interaction
+between parts that carry out different tasks and operate within distinct subsystems.
+Similarly, layers can be partitioned into tiers that describe the physical divide between the
+parts of the system (Adams).
+
+##### *Implicit Invocation (Publish-Subscribe) Architecture*
+
+An Implicit Invocation architecture style is useful when components need to be notified
+of certain changes instantaneously, without “busy-waiting” (constantly polling) for those
+changes to happen. Instead, components would “subscribe” to events that other
+components choose to broadcast and would be notified when the event takes place.
+Subscribed and published events serve as input and output data to other components,
+respectively (Adams).
+
+##### *Process-Control Architecture*
+
+In elements of the system that involve maintaining reference values by the manipulation
+of variables, the Process-Control style will be used. The two main components of this
+style are the Process and the Controller. The Controller is given a controlled variable with
+a target that we want it to reach. All input variables are given to the Process, which
+manipulates the variables and feeds them back into the Controller (creating a “loop”).
+The Controller will then manipulate the variables appropriately in order to converge the
+target variable (Adams).
+
+
+# Assignment 0
 ## Related Links:
 
 ### Overview:
