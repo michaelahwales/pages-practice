@@ -130,7 +130,135 @@ vehicle-specific implementation (more on this later).
 <h5 align="center">
   <em>The Final Conceptual Architecture</em>
 </h5>
-![conceptual architecture](/self-driving-sun-chariots/assets/conceptual_diagram_v4.png)
+<img src="/docs/assets/conceptual_diagram_v4.png" />
+
+<p align="center">
+   <strong> Figure 1 </strong>: Our final conceptual architecture
+</p>
+
+In order of decreasing abstraction, the architectural styles used for the final conceptual
+architecture were Client-Server, Layered, Publish-Subscribe, and Process-Control 
+(see the Data Dictionary for full definitions of these architectures). An overview
+of the system’s components and their interactions will now be described, 
+referencing these systems as necessary.
+
+To begin, the Cloud Service system, which consists of components crucial to autonomous
+driving technology, uses a Client-Server system to interact with the vehicle and keep it safe.
+Firstly, the HD-Map uses deep learning technology to create incredibly accurate maps of the
+vehicle’s surroundings that the vehicle’s software can query on the fly for navigation (“Apollo
+Open Platform”). Vehicles would also use the cloud in order to interact with each other and
+decrease the chance of collisions. Additionally, the V2X (Intelligent Vehicle Infrastructure
+Cooperation Solution) component utilizes the cloud to retrieve local traffic data in real time
+(“V2X: Intelligent Vehicle Infrastructure Cooperation Solution”).
+
+Next, Apollo Auto uses the Layered architecture style in order to sort its components into
+logical tasks. This was derived by taking note that the components of an autonomous driving
+system should be partitioned into a layer for cognitive driving intelligence (the logic that
+determines how the car should operate) and a layer for the vehicle platform (the hardware of the
+vehicle itself). Upon looking at Apollo Auto’s documentation, the system follows this rule by
+partitioning the software and hardware subsystems:
+
+<p align="center">
+   <strong> Figure 2 </strong>: Decoupling of the cognitive driving intelligence, the vehicle 
+   hardware platform, and the cloud shown in Apollo Auto’s architecture (“Apollo Open Platform”)
+</p>
+
+As briefly previously mentioned, the decoupling of the cognitive driving intelligence and
+the vehicle platform is crucial to efficient development. The intelligence system does not have to
+know about platform-specific details and vice versa, allowing the software to easily be deployed
+to multiple vehicle types without too much re-programming. We must note, however, that such a
+decoupling assumes that the vehicle hardware has “abilities for keeping the platform stable and
+retaining basic self-protection measures which may include reactive control” (Behere and
+Törngren 7). However, the majority of high-end vehicles come with these abilities built-in,
+allowing for cleanly split layers in the general case. Additionally, the cloud system used by
+Apollo Auto can be seen as another layer that the software interacts with.
+
+Before we look further within, let us describe the main modules present in Apollo Auto in
+order to get acquainted with the system. The Localization component makes use of the GPS,
+LiDAR (Light Detection and Ranging), Camera and IMU (Inertial Measurement Unit)
+components from the vehicle hardware to generate the vehicle’s exact location. The Perception
+component functions as the vehicle’s “eyes,” discerning obstacles and the status of traffic lights.
+Then, the Prediction component predicts the next move of each detected obstacle, and the
+Planning component calculates the future trajectory of the parent vehicle. The Control
+component translates the output from the Planning component into actionable commands for the
+vehicle's throttle, brakes, and wheel; these are then propagated to the vehicle hardware through
+the CanBus. The vehicle hardware contains the CPU, GPS, IMU, Camera, LiDAR, and multiple
+Radars that collect sensor input as data to make decisions from (“Apollo 5.5 Software
+Architecture”).
+
+Publish-Subscribe is the intuitive choice for communication between these components.
+First, the system would ideally be applicable to multiple types of vehicles instead of being
+designed in a vehicle-dependent fashion. Designing a system that would have to be re-designed
+for each vehicle type would waste time and expenses. However, if we think of the autonomous
+driving system as a vehicle with a separate “conscious” system, we can avoid the issue by
+publishing events from the conscious system (i.e., planning and prediction) that the vehicle
+hardware can subscribe to and respond accordingly by altering its velocity. The autonomous
+driving system could be seen as a “plug-in” to the vehicle hardware, which Publish-Subscribe is
+designed for.
+
+Additionally, Publish-Subscribe is ideal for a system that is designed to react quickly to
+its environment without using expensive busy-waiting that would take up processing power. The
+architecture style allows components in the system to be notified of events that could happen at
+any moment. For example, the Perception component could detect an unexpected swerving
+vehicle, Prediction catches the event and detects their next move, Planning in turn decides the
+vehicle’s trajectory, which notifies Control then the CanBus, which handles the action of
+avoiding the other vehicle.
+
+Finally, Apollo Auto uses a Process-Control architecture style as the CanBus passes data
+from the vehicle hardware back to the software system (“Apollo 5.5 Software Architecture”).
+This Process-Control subsystem is likely used to “continuously learn and adjust the model
+parameters” (Behere and Törngren 9). This could be used to keep parameters such as vehicle
+speed and acceleration within a determined balance.
+
+<h5 align="center">
+  <em>External Interfaces</em>
+</h5>
+
+Other modules for testing and error handling purposes interact with the whole system.
+Serviced by the vehicle’s Hardware Platform, the Open Vehicle Certificate Platform refers to the
+interface that connects the Apollo Auto autonomous driving system with the car itself, which is
+at the highest level of the system. (“Open Vehicle Certificate Platform”). The Human Machine
+Interface (HMI), or DreamView, is an Open Software component that allows drivers and
+developers to track and view the status of the autonomous vehicle in real time, updated by the
+Monitor. The Monitor component keeps tabs on the entire system and watches for errors, alerting
+the Guardian component if anything goes wrong, which would then intercede and take over
+(“Apollo 5.5 Software Architecture”). Finally, the Cloud Service layer described above is
+another example of an external interface.
+
+<h4 align="center">
+   EVOLUTION OF THE SYSTEM
+</h4>
+
+The Apollo system continuously improves its prediction models by generating semantic
+maps that add data on road features to its deep learning network (“Apollo 5.0 Technical Deep
+Dive”). These maps help improve the accuracy of models like behavior predictions, path
+prediction, intersecting turning direction prediction, and more. A hierarchy of the models, ranked
+by the priority of obstacles, is maintained and passed through scene analysis, intent
+understanding, task prioritization and through the model scheduling framework (“Apollo 5.0
+Technical Deep Dive”). The system then automatically selects a model that will result in the best
+prediction currently possible. This process allows the system’s models to evolve so prediction
+results can continuously improve.
+
+As new road conditions and driving use cases are introduced to the system, the planning
+component evolves to become more modular and scenario specific. This means that each driving
+use case can be addressed individually so that scenario-specific issues can be reported and
+resolved independently from other scenarios (“Apollo 5.5 Software Architecture”). The planner
+also uses optimization algorithms to improve the distribution of speed and acceleration over
+time, and the Open Space Planner uses a model-based optimization scheme that represents
+obstacle shapes and road boundaries to utilize the vehicle dynamics model more efficiently
+(“Apollo Open Platform”). Similarly, AI techniques and ‘data-driven solutions’ allow the
+perception component to improve its detection and recognition capabilities over time (“Apollo
+Open Platform”). Overall, by continuously optimizing and updating its components, the system
+is able to evolve by improving its prediction models, perception, planning, and overall
+performance over time.
+
+<h4 align="center">
+   CONTROL AND DATA FLOW AMONG PARTS
+</h4>
+<h5 align="center">
+  <em>Implicit Invocation and Process-Control Architecture for Data Flow</em>
+</h5>
+
 
 
 ## Related Links:
