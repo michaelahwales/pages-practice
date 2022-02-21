@@ -553,6 +553,45 @@ manipulates the variables and feeds them back into the Controller (creating a �
 The Controller will then manipulate the variables appropriately in order to converge the
 target variable (Adams).
 
+### REFERENCES
+Adams, Bram. Architecture Styles. Jan 2022,
+https://onq.queensu.ca/d2l/le/content/642417/viewContent/3751085/View. PowerPoint
+Presentation.  
+
+“Apollo Cyber RT Framework.” Apollo, Baidu, 2020, https://apollo.auto/cyber.html.  
+
+“Apollo Cyber Security.” Apollo, Baidu, 2020, https://apollo.auto/platform/security.html.  
+
+“Apollo Open Platform.” Apollo, Baidu, 2020, https://apollo.auto/developer.html.  
+
+“Apollo's Mission.” Youtube, Baidu, 6 Nov. 2017,
+https://www.youtube.com/watch?v=UmKSiFujJiw.  
+
+“Apollo 5.0 Technical Deep Dive.” Medium, Apollo Auto, 3 July 2019,
+https://medium.com/apollo-auto/apollo-5-0-technical-deep-dive-d41ac74a23f9.  
+
+“Apollo 5.5 Software Architecture.” GitHub, ApolloAuto, 3 Jan. 2020,
+https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architectur
+e.md.  
+
+Behere, Sagar, and Martin Törngren. “A Functional Reference Architecture for Autonomous
+Driving.” Information and Software Technology, vol. 73, 2016, pp. 136–150.,
+https://doi.org/10.1016/j.infsof.2015.12.008.  
+
+Garcia, Joshua, et al. “A Comprehensive Study of Autonomous Vehicle Bugs.” Proceedings of
+the ACM/IEEE 42nd International Conference on Software Engineering, 2020,
+https://doi.org/10.1145/3377811.3380397.  
+
+“Introduction to Baidu Apollo Cyber RT, Basic Concepts and Comparison with ROS.” Code
+World, 24 Jan. 2021, https://www.codetd.com/en/article/12255887.  
+
+“Open Vehicle Certificate Platform.” Apollo, Baidu, 2020,
+https://apollo.auto/vehicle/certificate_en.html.  
+
+“Smart Transportation Solution.” Apollo, Baidu, 2020, https://apollo.auto/index.html.  
+
+“V2X: Intelligent Vehicle Infrastructure Cooperation Solution.” Apollo, Baidu, 2020,
+https://apollo.auto/v2x/index.html.  
 
 # Assignment 0
 ## Related Links:
