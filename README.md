@@ -10,6 +10,9 @@
 
 # Assignment 1
 ## Conceptual Architecture
+## Presentation
+[Click here to view presentation.](https://www.canva.com/design/DAE4QOIsoH4/oyClYhWryUlB5Spzk695ZQ/view?utm_content=DAE4QOIsoH4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink#2)
+## Report
 ### ABSTRACT
 Uncovering the conceptual architecture of a system is of interest in order to learn how
 developers tackle design problems. When deconstructing an existing system, one can gain insight
