@@ -41,9 +41,9 @@ Apollo Auto has made incredible advancements in autonomous driving technology. S
 far, the system has been applied to cars, buses, and taxis. The autonomous cars can park
 themselves, reduce the time spent waiting in traffic by up to 30% by using traffic flow to
 minimize the amount of red lights, share location information with other cars, use sensors of all
-kinds to accurately sense its environment, and more (“Smart Transportation Solution”). Apollo
+kinds to accurately sense its environment, and more [(“Smart Transportation Solution”)](https://apollo.auto/index.html). Apollo
 Auto boasted that by the end of 2020, the software would be able to handle highways and typical
-urban streets (“Apollo's Mission”).
+urban streets [(“Apollo's Mission”)](https://www.youtube.com/watch?v=UmKSiFujJiw).
 
 The purpose of this report was to extract the conceptual architecture of Apollo Auto,
 referring to reference architectures on autonomous driving systems and methods of extracting
@@ -122,7 +122,7 @@ interpreted differently for different types of vehicles. However, a journal pape
 driving systems states: “The vehicle contains a network of electronic control units (ECUs)
 controlling the basic vehicle propulsion (lateral and longitudinal acceleration, braking). The
 vehicle manufacturer usually builds a ‘gateway’ that allows the experimenters to send a limited
-set of commands to the ECUs in the vehicle network” (Behere and Törngren 6). Thus, most
+set of commands to the ECUs in the vehicle network” [(Behere and Törngren 6)](https://doi.org/10.1016/j.infsof.2015.12.008). Thus, most
 vehicle manufacturers provide functionality for developer input for direct access to vehicle
 hardware, eliminating the need for the software to have a deep understanding of the
 vehicle-specific implementation (more on this later).
@@ -145,11 +145,11 @@ referencing these systems as necessary.
 To begin, the Cloud Service system, which consists of components crucial to autonomous
 driving technology, uses a Client-Server system to interact with the vehicle and keep it safe.
 Firstly, the HD-Map uses deep learning technology to create incredibly accurate maps of the
-vehicle’s surroundings that the vehicle’s software can query on the fly for navigation (“Apollo
-Open Platform”). Vehicles would also use the cloud in order to interact with each other and
+vehicle’s surroundings that the vehicle’s software can query on the fly for navigation [(“Apollo
+Open Platform”)](https://apollo.auto/developer.html). Vehicles would also use the cloud in order to interact with each other and
 decrease the chance of collisions. Additionally, the V2X (Intelligent Vehicle Infrastructure
 Cooperation Solution) component utilizes the cloud to retrieve local traffic data in real time
-(“V2X: Intelligent Vehicle Infrastructure Cooperation Solution”).
+[(“V2X: Intelligent Vehicle Infrastructure Cooperation Solution”)](https://apollo.auto/v2x/index.html).
 
 Next, Apollo Auto uses the Layered architecture style in order to sort its components into
 logical tasks. This was derived by taking note that the components of an autonomous driving
@@ -161,7 +161,7 @@ partitioning the software and hardware subsystems:
 <img src="docs/assets/apollo_developer.png" />
 <h5 align="center">
    <strong> Figure 2 </strong>: Decoupling of the cognitive driving intelligence, the vehicle 
-   hardware platform, and the cloud shown in Apollo Auto’s architecture (“Apollo Open Platform”)
+   hardware platform, and the cloud shown in Apollo Auto’s architecture <a href="https://apollo.auto/developer.html">("Apollo Open Platform")</a>
 </h5>
 
 As briefly previously mentioned, the decoupling of the cognitive driving intelligence and
@@ -169,8 +169,7 @@ the vehicle platform is crucial to efficient development. The intelligence syste
 know about platform-specific details and vice versa, allowing the software to easily be deployed
 to multiple vehicle types without too much re-programming. We must note, however, that such a
 decoupling assumes that the vehicle hardware has “abilities for keeping the platform stable and
-retaining basic self-protection measures which may include reactive control” (Behere and
-Törngren 7). However, the majority of high-end vehicles come with these abilities built-in,
+retaining basic self-protection measures which may include reactive control” [(Behere and Törngren 7)](https://doi.org/10.1016/j.infsof.2015.12.008). However, the majority of high-end vehicles come with these abilities built-in,
 allowing for cleanly split layers in the general case. Additionally, the cloud system used by
 Apollo Auto can be seen as another layer that the software interacts with.
 
@@ -184,8 +183,7 @@ Planning component calculates the future trajectory of the parent vehicle. The C
 component translates the output from the Planning component into actionable commands for the
 vehicle's throttle, brakes, and wheel; these are then propagated to the vehicle hardware through
 the CanBus. The vehicle hardware contains the CPU, GPS, IMU, Camera, LiDAR, and multiple
-Radars that collect sensor input as data to make decisions from (“Apollo 5.5 Software
-Architecture”).
+Radars that collect sensor input as data to make decisions from [(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md).
 
 Publish-Subscribe is the intuitive choice for communication between these components.
 First, the system would ideally be applicable to multiple types of vehicles instead of being
@@ -206,9 +204,9 @@ vehicle’s trajectory, which notifies Control then the CanBus, which handles th
 avoiding the other vehicle.
 
 Finally, Apollo Auto uses a Process-Control architecture style as the CanBus passes data
-from the vehicle hardware back to the software system (“Apollo 5.5 Software Architecture”).
+from the vehicle hardware back to the software system [(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md).
 This Process-Control subsystem is likely used to “continuously learn and adjust the model
-parameters” (Behere and Törngren 9). This could be used to keep parameters such as vehicle
+parameters” [(Behere and Törngren 9)](https://doi.org/10.1016/j.infsof.2015.12.008). This could be used to keep parameters such as vehicle
 speed and acceleration within a determined balance.
 
 <h5 align="center">
@@ -218,12 +216,12 @@ speed and acceleration within a determined balance.
 Other modules for testing and error handling purposes interact with the whole system.
 Serviced by the vehicle’s Hardware Platform, the Open Vehicle Certificate Platform refers to the
 interface that connects the Apollo Auto autonomous driving system with the car itself, which is
-at the highest level of the system. (“Open Vehicle Certificate Platform”). The Human Machine
+at the highest level of the system. [(“Open Vehicle Certificate Platform”)](https://apollo.auto/vehicle/certificate_en.html). The Human Machine
 Interface (HMI), or DreamView, is an Open Software component that allows drivers and
 developers to track and view the status of the autonomous vehicle in real time, updated by the
 Monitor. The Monitor component keeps tabs on the entire system and watches for errors, alerting
 the Guardian component if anything goes wrong, which would then intercede and take over
-(“Apollo 5.5 Software Architecture”). Finally, the Cloud Service layer described above is
+[(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md). Finally, the Cloud Service layer described above is
 another example of an external interface.
 
 <h4 align="center">
@@ -231,25 +229,24 @@ another example of an external interface.
 </h4>
 
 The Apollo system continuously improves its prediction models by generating semantic
-maps that add data on road features to its deep learning network (“Apollo 5.0 Technical Deep
-Dive”). These maps help improve the accuracy of models like behavior predictions, path
+maps that add data on road features to its deep learning network [(“Apollo 5.0
+Technical Deep Dive”)](https://medium.com/apollo-auto/apollo-5-0-technical-deep-dive-d41ac74a23f9). These maps help improve the accuracy of models like behavior predictions, path
 prediction, intersecting turning direction prediction, and more. A hierarchy of the models, ranked
 by the priority of obstacles, is maintained and passed through scene analysis, intent
-understanding, task prioritization and through the model scheduling framework (“Apollo 5.0
-Technical Deep Dive”). The system then automatically selects a model that will result in the best
+understanding, task prioritization and through the model scheduling framework [(“Apollo 5.0
+Technical Deep Dive”)](https://medium.com/apollo-auto/apollo-5-0-technical-deep-dive-d41ac74a23f9). The system then automatically selects a model that will result in the best
 prediction currently possible. This process allows the system’s models to evolve so prediction
 results can continuously improve.
 
 As new road conditions and driving use cases are introduced to the system, the planning
 component evolves to become more modular and scenario specific. This means that each driving
 use case can be addressed individually so that scenario-specific issues can be reported and
-resolved independently from other scenarios (“Apollo 5.5 Software Architecture”). The planner
+resolved independently from other scenarios [(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md). The planner
 also uses optimization algorithms to improve the distribution of speed and acceleration over
 time, and the Open Space Planner uses a model-based optimization scheme that represents
 obstacle shapes and road boundaries to utilize the vehicle dynamics model more efficiently
-(“Apollo Open Platform”). Similarly, AI techniques and ‘data-driven solutions’ allow the
-perception component to improve its detection and recognition capabilities over time (“Apollo
-Open Platform”). Overall, by continuously optimizing and updating its components, the system
+[(“Apollo Open Platform”)](https://apollo.auto/developer.html). Similarly, AI techniques and ‘data-driven solutions’ allow the
+perception component to improve its detection and recognition capabilities over time [(“Apollo Open Platform”)](https://apollo.auto/developer.html). Overall, by continuously optimizing and updating its components, the system
 is able to evolve by improving its prediction models, perception, planning, and overall
 performance over time.
 
@@ -288,7 +285,7 @@ will be maintained through the manipulation of variables in components of the �
 control” and “vehicle platform manipulation” categories to control the vehicle.
 
 By examining high level descriptions of Apollo’s open software platform on the software
-overview page (https://apollo.auto/developer.html), we can determine which of these modules
+overview page [("Apollo Open Platform")](https://apollo.auto/developer.html), we can determine which of these modules
 belong to the three categories of the reference architecture and create a conceptual view of how
 information will flow between them.
 
@@ -299,17 +296,17 @@ information will flow between them.
 
 Apollo’s Perception module maps to the Perception category of the reference
 architecture. “The perception module identifies the world surrounding the autonomous vehicle.”
-(Apollo 5.5)
+[(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md)
 
 The Prediction and Planning modules in Apollo deal with the ref. component of
 Trajectory generation. The trajectory generation component involves the generation of
 obstacle-free trajectories through the vehicle’s environment (in the world coordinate system)
-(Behere and Törngren 5). The Apollo Prediction module anticipates the motion of obstacles, the
+[(Behere and Törngren 5)](https://doi.org/10.1016/j.infsof.2015.12.008). The Apollo Prediction module anticipates the motion of obstacles, the
 Routing module tells the vehicle how to reach its destination, and the Planning module plans the
 vehicle’s spatio-temporal trajectory. Each of these three components receive data from the HD
 Map (a module in the cloud service platform level of Apollo’s system), and the Localization
 Modules. “The localization module leverages various information sources such as GPS, LiDAR
-and IMU to estimate where the autonomous vehicle is located.” (Apollo 5.5) The HD map
+and IMU to estimate where the autonomous vehicle is located.” [(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md) The HD map
 provides structured information regarding roads.
 
 There are several Apollo modules that provide data to the “control” components. The
@@ -322,7 +319,7 @@ Process-Control processes.
 
 Apollo’s control module subscribes to information broadcast by the trajectory generation
 components: “The control module executes the planned spatio-temporal trajectory by generating
-control commands such as throttle, brake, and steering.” (Apollo 5.5). This maps to the
+control commands such as throttle, brake, and steering.” [(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md). This maps to the
 Trajectory Execution component described in the reference architecture (the component which
 actually executes the trajectory generated by Decision and Control).
 
@@ -332,7 +329,7 @@ a failure. The monitor Module surveils all the modules in the vehicle including 
 provides this data to the Guardian and Human-Machine Interface modules.
 
 The CanBus module “is the interface that passes control commands to the vehicle
-hardware. It also passes chassis information to the software system.” (Apollo 5.5).
+hardware. It also passes chassis information to the software system” [(“Apollo 5.5 Software Architecture”)](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md).
 
 Finally, the result of this control information is sent to the Human-Machine Interface
 module. “Human Machine Interface or DreamView in Apollo is a module for viewing the status
@@ -353,31 +350,31 @@ and direction, or gathering, processing, and using data about the road ahead, or
 all those tasks simultaneously. It also facilitates smaller scale tasks like adjusting the volume of
 the entertainment system, or changing the A.C. according to the user’s settings. In the very few
 reported cases where concurrency has been buggy in the Apollo system, it was found to have
-detrimental effects on the speed control (Garcia, et al. 7).
+detrimental effects on the speed control [(Garcia, et al. 7)](https://doi.org/10.1145/3377811.3380397).
 
 Concurrency is dependent on the operating system, or in this case the operating platform.
 Apollo uses a centralized and parallel computing model. Apollo’s operating platform has a central component, the Apollo Cyber RT framework, that collects information from the other components and directs them. It deals with each task it’s faced with through the use of a DAG
 (directed acyclic graph) dependency graph. A DAG graph uses an algorithm that takes into
-account the “priority, running time, and resource usage” (“Introduction to Baidu Apollo Cyber
-RT, Basic Concepts and Comparison with ROS”) of each task to determine how to direct each
+account the “priority, running time, and resource usage” [(“Introduction to Baidu Apollo Cyber
+RT, Basic Concepts and Comparison with ROS”)](https://www.codetd.com/en/article/12255887) of each task to determine how to direct each
 task. Then, a task is placed on a queue. Which queue and where is determined by a scheduler that
 takes into account resources, time, and urgency. When it is ready to execute, a task is “executed
-as an optimized thread” (“Apollo Cyber RT Framework”) - threads being a very lightweight, and
+as an optimized thread” [(“Apollo Cyber RT Framework”)](https://apollo.auto/cyber.html) - threads being a very lightweight, and
 computationally efficient process. At runtime, when the fused sensors start collecting data and
 incorporating user-tasks, all components work together with the Apollo Cyber RT Framework to
-manage and execute tasks in parallel, led by the fused sensor input (“Apollo Cyber RT
-Framework”).
+manage and execute tasks in parallel, led by the fused sensor input [(“Apollo Cyber RT
+Framework”)](https://www.codetd.com/en/article/12255887).
 
 Ultimately, Apollo’s conceptual architecture with regards to concurrency is grounded in
 their centralized and parallel computing model and strongly relies on the Apollo Cyber RT
 framework. It consists of multiple components, all linked together by a central component which
 uses a DAG graph to manage their tasks. Efficiency and parallelism is achieved through the use
 of the scheduler, lightweight threads, and resource management. This is depicted in figure X
-(“Apollo Cyber RT Framework”).
+[(“Apollo Cyber RT Framework”)](https://apollo.auto/cyber.html).
 
 <img src="docs/assets/apollo_cyber.png" />
 <h5 align="center">
-   <strong> Figure 5 </strong>: Centralized and Parallel computing model using Cyber RT Framework (“Apollo Cyber RT Framework”).
+   <strong> Figure 5 </strong>: Centralized and Parallel computing model using Cyber RT Framework [(“Apollo Cyber RT Framework”)](https://apollo.auto/cyber.html).
 </h5>
 
 <h4 align="center">
@@ -455,7 +452,7 @@ alert the CanBus to perform an emergency stop.
 
 The layered architecture style used acknowledges that the system’s technical
 implementation is broadly separated on the basis of the cognitive driving functions and the
-vehicle platform functions (Behere & Törngren, 2016). Within this however, the layered style
+vehicle platform functions [(Behere and Törngren 7)](https://doi.org/10.1016/j.infsof.2015.12.008). Within this however, the layered style
 allows for each of the layers to be implemented by a different team, and gives them the freedom
 of allowing them to make their own decisions regarding specifics like programming style,
 technology stacks and tools used.
@@ -519,7 +516,7 @@ we expand the conceptual architecture to derive the concrete details of the syst
 ##### *Client-Server Architecture*
 
 A Client-Server architecture style is used when an application requires “distributed data
-and processing across a range of components” (Adams). The style partitions components
+and processing across a range of components” [(Adams)](https://onq.queensu.ca/d2l/le/content/642417/viewContent/3751085/View) The style partitions components
 into servers and clients. Servers remotely provide a service such as making a connection
 or making changes to a database to clients that require that service. Clients connect to
 servers through networks.
@@ -532,7 +529,7 @@ hierarchies that mimic Client-Server style, as each layer of the hierarchy acts 
 server to the layer above. Layered style is exceptional at highlighting the interaction
 between parts that carry out different tasks and operate within distinct subsystems.
 Similarly, layers can be partitioned into tiers that describe the physical divide between the
-parts of the system (Adams).
+parts of the system [(Adams)](https://onq.queensu.ca/d2l/le/content/642417/viewContent/3751085/View).
 
 ##### *Implicit Invocation (Publish-Subscribe) Architecture*
 
@@ -541,7 +538,7 @@ of certain changes instantaneously, without “busy-waiting” (constantly polli
 changes to happen. Instead, components would “subscribe” to events that other
 components choose to broadcast and would be notified when the event takes place.
 Subscribed and published events serve as input and output data to other components,
-respectively (Adams).
+respectively [(Adams)](https://onq.queensu.ca/d2l/le/content/642417/viewContent/3751085/View).
 
 ##### *Process-Control Architecture*
 
@@ -551,7 +548,7 @@ style are the Process and the Controller. The Controller is given a controlled v
 a target that we want it to reach. All input variables are given to the Process, which
 manipulates the variables and feeds them back into the Controller (creating a “loop”).
 The Controller will then manipulate the variables appropriately in order to converge the
-target variable (Adams).
+target variable [(Adams)](https://onq.queensu.ca/d2l/le/content/642417/viewContent/3751085/View).
 
 ### REFERENCES
 Adams, Bram. Architecture Styles. Jan 2022,
@@ -571,8 +568,7 @@ https://www.youtube.com/watch?v=UmKSiFujJiw.
 https://medium.com/apollo-auto/apollo-5-0-technical-deep-dive-d41ac74a23f9.  
 
 “Apollo 5.5 Software Architecture.” GitHub, ApolloAuto, 3 Jan. 2020,
-https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architectur
-e.md.  
+https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md.  
 
 Behere, Sagar, and Martin Törngren. “A Functional Reference Architecture for Autonomous
 Driving.” Information and Software Technology, vol. 73, 2016, pp. 136–150.,
