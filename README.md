@@ -13,6 +13,46 @@
 ## Presentation
 [Click here to view presentation.](https://www.canva.com/design/DAE4QOIsoH4/oyClYhWryUlB5Spzk695ZQ/view?utm_content=DAE4QOIsoH4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink#2)
 ## Report
+
+### <ins>ABSTRACT</ins>
+### <ins>INTRODUCTION</ins>
+### <ins>CONCRETE ARCHITECTURE</ins>
+
+## <h3 align="center"> <strong> TOP-LEVEL SUBSYSTEMS </strong> </h3>
+# <h4 align="center"> <em> DERIVATION PROCESS: CONCRETE ARCHITECTURE </em> </h4>
+# <h5 align="center"> <strong> <em> The Mapping Process </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> Handling Bidirectional Dependencies </em> </strong> </h5>
+
+# <h4 align="center"> <em> FINAL CONCRETE ARCHITECTURE </em> </h4>
+# <h4 align="center"> <em> DESCRIPTION OF CONCRETE SUBSYSTEMS AND INTERACTIONS </em> </h4>
+# <h4 align="center"> <em> REFLEXION ANALYSIS </em> </h4>
+# <h5 align="center"> <strong> <em> Reflexion: The Common Subsystem </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> Reflexion: The Cloud Server and the Open Software Platform </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Open Software Platform </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Hardware Platform </em> </strong> </h5>
+
+## <h3 align="center"> <strong> INNER SUBSYSTEM: LOCALIZATION </strong> </h3>
+# <h4 align="center"> <em> CONCEPTUAL ARCHITECTURE </em> </h4>
+
+# <h4 align="center"> <em> CONCRETE ARCHITECTURE </em> </h4>
+# <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> The Two Methods of Localization - The Main Components of The Subsystem </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> Conclusions of Concrete Subsystem and Interactions </em> </strong> </h5>
+
+# <h4 align="center"> <em> LOCALIZATION SUBSYSTEM REFLEXION ANALYSIS </em> </h4>
+
+## <h3 align="center"> <strong> SEQUENCE DIAGRAMS </strong> </h3>
+# <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> Use Case 1: Turning left when pedestrian runs into street to cross the road </em> </strong> </h5>
+# <h5 align="center"> <strong> <em> Use Case 2: Getting a flat tire while on the road </em> </strong> </h5>
+
+
+### <ins>CONCLUSION</ins>
+## <h3 align="center"> <strong> SUMMARY OF FINDINGS </strong> </h3>
+## <h3 align="center"> <strong> LIMITATIONS AND LESSONS LEARNED </strong> </h3>
+
+### <ins>REFERENCES</ins>
+
 <img src="docs/assets/img1.png" />
 <h5 align="center">
    <strong> Figure 1 </strong>: The mapping of source code directories to systems and subsystems in Understand.
