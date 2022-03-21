@@ -27,8 +27,23 @@
 # <h4 align="center"> <em> DESCRIPTION OF CONCRETE SUBSYSTEMS AND INTERACTIONS </em> </h4>
 # <h4 align="center"> <em> REFLEXION ANALYSIS </em> </h4>
 # <h5 align="center"> <strong> <em> Reflexion: The Common Subsystem </em> </strong> </h5>
+<h5 <strong> <ins> Common <--> Cloud Server </ins> </strong></h5>
+<h5 <strong> 1. Cloud Server/Navigation/map --> Common/common </strong></h5>
+<h5 <strong> 2. Common/storytelling --> Cloud Server/Navigation/map </strong></h5>
+<h5 <strong> <ins> Common <--> Open Software Platform </ins> </strong></h5>
+<h5 <strong> 1. Open Software Platform/planning --> Common/common
+</h5>
+<h5 <strong> 2. Common/common --> Open Software Platform/Navigation/localization
+</strong></h5>
+
+<h5 <strong> <ins> Hardware Platform --> Common </ins> </strong></h5>
+<h5 <strong> 1. Hardware Platform/Drivers/Navigation/lidar → Common/common </h5>
+
 # <h5 align="center"> <strong> <em> Reflexion: The Cloud Server and the Open Software Platform </em> </strong> </h5>
+<h5 <strong> <ins> Cloud Server <--> Open Software Platform </ins> </strong></h5> 
+   
 # <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Open Software Platform </em> </strong> </h5>
+
 # <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Hardware Platform </em> </strong> </h5>
 
 ## <h3 align="center"> <strong> INNER SUBSYSTEM: LOCALIZATION </strong> </h3>
