@@ -8,6 +8,61 @@
 - Michaelah Wales
 - Hannah Weider
 
+# Assignment 2
+## Concrete Architecture
+## Presentation
+[Click here to view presentation.](https://www.canva.com/design/DAE4QOIsoH4/oyClYhWryUlB5Spzk695ZQ/view?utm_content=DAE4QOIsoH4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink#2)
+## Report
+<img src="docs/assets/img1.png" />
+<h5 align="center">
+   <strong> Figure 1 </strong>: The mapping of source code directories to systems and subsystems in Understand.
+</h5>
+
+<img src="docs/assets/img2.png" />
+<h5 align="center">
+   <strong> Figure 2 </strong>: The interaction between the high-level directories of the source code, highlighting the connections between subsystems not seen in our conceptual architecture.
+</h5>
+
+<img src="docs/assets/img3.png" />
+<h5 align="center">
+   <strong> Figure 3 </strong>: The high-level architecture of Apollo Auto in Understand.
+</h5>
+
+<img src="docs/assets/img4.png" />
+<h5 align="center">
+   <strong> Figure 4 </strong>: Dependencies in concrete architecture.
+</h5>
+
+<img src="docs/assets/img5.png" />
+<h5 align="center">
+   <strong> Figure 5 </strong>: High-level dependencies of the conceptual and concrete architectures.
+</h5>
+
+<img src="docs/assets/img6.png" />
+<h5 align="center">
+   <strong> Figure 6 </strong>: Conceptual Architecture of Localization Subsystem.
+</h5>
+
+<img src="docs/assets/img7.png" />
+<h5 align="center">
+   <strong> Figure 7 </strong>: Interactions Between Components Within the Localization Subsystem.
+</h5>
+
+<img src="docs/assets/img8.png" />
+<h5 align="center">
+   <strong> Figure 8 </strong>: Concrete Architecture Within the Localization Subsystem.
+</h5>
+
+<img src="docs/assets/img9.png" />
+<h5 align="center">
+   <strong> Figure 9 </strong>: Sequence Diagram for Use Case 1.
+</h5>
+
+<img src="docs/assets/img10.png" />
+<h5 align="center">
+   <strong> Figure 10 </strong>: Sequence Diagram for Use Case 2.
+</h5>
+
 # Assignment 1
 ## Conceptual Architecture
 ## Presentation
