@@ -19,7 +19,8 @@ Using our conceptual architecture of the Apollo Auto system, Understand by SciTo
 
 After finalizing the concrete architecture, we noted that components within each top level subsystem have dependencies to other top level subsystems - there is a lot of communication between subsystems. We first tackled the Common subsystem in the reflexion analysis, which justified its addition to the concrete architecture. Then, we recognized discrepancies found within the Open Software Platform of the concrete architecture and the OSP of the conceptual architecture, all of which were affiliated with the Planning or Localization subsystems.
 
-We then delved into the Localization subsystem, as it performs an important function - estimating the vehicles’ location. This subsystem was only briefly discussed in our conceptual architecture, so the discrepancies found in the reflexion analysis totally outlined the subsystem.  
+We then delved into the Localization subsystem, as it performs an important function - estimating the vehicles’ location. This subsystem was only briefly discussed in our conceptual architecture, so the discrepancies found in the reflexion analysis totally outlined the subsystem. 
+
 Finally, we revisited our use cases from the conceptual architecture, applying our concrete architecture to them. We found that both cases were very similar and had only a few notable differences regarding concurrency and communication.
 
 ### <ins>INTRODUCTION</ins>
@@ -72,7 +73,7 @@ After performing this mapping, we observed any unusual-looking dependencies to a
 </h5>
 Once we found a way to explain these dependencies, we created two diagrams; one displays the dependencies in Understand and one shows the pub-sub graph of subscribed connections. We decided to separate these to make them easier to read. Note that a “subscription” still counts as a dependency, and both will be considered when performing reflexion analysis.
 <h4 align="center"> <em> DESCRIPTION OF CONCRETE SUBSYSTEMS AND INTERACTIONS </em> </h4>
-Our concrete architecture is divided into four top-level subsystems – the Cloud Server, the Open Software Platform, the Hardware Platform, and the Common subsystem. The main architectural style of the system is publish-subscribe. Where information is not obtained through a pub-sub relationship, it will be noted. 
+Our concrete architecture is divided into four top-level subsystems – the Cloud Server, the Open Software Platform, the Hardware Platform, and the Common subsystem. The main architectural style of the system is publish-subscribe. Where information is not obtained through a pub-sub relationship, it will be noted
 
 The Cloud Server subsystem in our concrete architecture corresponds to the Cloud Service Platform of the Apollo system. This subsystem’s functionality is mostly outside of the scope of this project, but there is a bidirectional relationship between components of the Cloud Server subsystem and the Open Software Platform, as well as between the Cloud Server subsystem and the Common subsystem in our concrete architecture. The Open Software subsystem has a bidirectional relationship with components of Common as well as the Cloud Server, and a one way relationship where components of the Open Software Platform depend on the Hardware Platform’s canbus driver components. The Hardware Platform has a one-way dependency on components of Common.
 
@@ -93,6 +94,7 @@ The Common subsystem contains components that are accessed by all other top-leve
 </h5>
 In this section, we will analyze the differences between our conceptual architecture and our concrete architecture, using Figure 5 for high-level analysis and Figure 4 for lower-level analysis.
 <h5 align="center"> <strong> <em> Reflexion: The Common Subsystem </em> </strong> </h5>
+The first obvious difference between the two architectures is the existence of the Common Platform in the concrete architecture. This subsystem was not included in the conceptual architecture as we were unaware of the existence of the cyber, storytelling, tools, and common directories, which need to be accessed by multiple layers of the system. Note that the Common subsystem is used by almost every subcomponent, so we will only give one example of each type of connection.
 <h5 <strong> <ins> Common ↔ Cloud Server </ins> </strong></h5>
 <h5 <strong> 1. Cloud Server/Navigation/map → Common/common </strong></h5>
 Files used: box2d.h, line_segment2d.h, vec2d.h
@@ -124,9 +126,12 @@ Files used: adapter_gflags.h, latency_recorder.h
 
 Explanation: compensator_component.cc uses a latency recorder from latency_recorder.h to log latency records when compensating for motion with the LiDAR.
 <h5 align="center"> <strong> <em> Reflexion: The Cloud Server and the Open Software Platform </em> </strong> </h5>
+Another unexpected dependency in the concrete architecture is the fact that the Cloud Server also depends on the Open Software Platform. In our conceptual architecture, we only anticipated that the Open Software Platform would depend on the Cloud Server for making map queries and gaining traffic information, and that the Cloud Server would operate independently to provide these services. However, the Cloud Server needs to query Planning and Routing for information from the Open Software Platform on the vehicle’s state to determine the next planning and routing options. We also neglected to indicate some of the dependencies in the other direction. All are described in detail, below.
+
 <h5 <strong> <ins> Cloud Server ↔ Open Software Platform </ins> </strong></h5> 
 <h5 <strong> 1. Cloud/Navigation/map ↔ Open Software Platform/planning </h5>
 Files used: planning_gflags.h  
+
 Explanation: pnc_map.cc uses planning “flags” from planning_gflags.h when updating the vehicle state in conjunction with information on nearby routing waypoints to determine if the vehicle’s next move needs to be re-planned. This is likely to deal with situations in which the vehicle goes off the map or disconnects and needs to reorient itself.
 
 <h5 <strong> 2. Cloud/Navigation/map → Open Software Platform/Navigation/routing </h5>
@@ -198,7 +203,7 @@ Explanation: The CanBus software depends on the CanBus driver to access a Byte c
 We recognized in our conceptual architecture that the goal of the localization subsystem is to find the vehicle’s exact location. Our conceptual view of the localization subsystem was very high level. We noted major interactions of the subsystem with the rest of the system, but neglected to analyze the inner architecture [5]. As this subsystem is in charge of estimating localization, and most of its input is from other subsystems, the conceptual architecture is very simple. It would be a simple pipe and filter consisting of a “Localization Calculator” component filter, which takes the input from subsystems Localization is subscribed to, and then sends it to a “Common” component filter which publishes it to other subsystems. See Figure 6 for the conceptual architecture of the localization subsystem.
 <img src="docs/assets/img6.png" />
 <h5 align="center">
-   <strong> Figure 6 </strong>: Conceptual Architecture of Localization Subsystem.
+   <strong> Figure 6</strong>: Conceptual Architecture of Localization Subsystem.
 </h5>
 <h4 align="center"> <em> CONCRETE ARCHITECTURE </em> </h4>
 <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
@@ -211,11 +216,11 @@ OnTimer (rtk) is a method of localization based in real-time. This method utiliz
 The understand file of the concrete architecture depicts the dependencies of the localization subsystem (see Figure 7). It demonstrates that within the localization subsystem the Common component is in charge of connecting the dots. The components rtk and msf (and ndt if it were fully functional) independently compute localization estimates, and send them to the Common component. Due to the independent nature of the subsystem’s components, it resembles a pipe and filter style. The localization method components (rtk, msf, and ndt) and the Common component would be the filters connected by pipes that determine where they send and get their information. A diagram representing the architecture can be seen in Figure 8. 
 <img src="docs/assets/img7.png" />
 <h5 align="center">
-   <strong> Figure 7 </strong>: Interactions Between Components Within the Localization Subsystem.
+   <strong> Figure 7</strong>: Interactions Between Components Within the Localization Subsystem.
 </h5>
 <img src="docs/assets/img8.png" />
 <h5 align="center">
-   <strong> Figure 8 </strong>: Concrete Architecture Within the Localization Subsystem.
+   <strong> Figure 8</strong>: Concrete Architecture Within the Localization Subsystem.
 </h5>
 <h4 align="center"> <em> LOCALIZATION SUBSYSTEM REFLEXION ANALYSIS </em> </h4>
 Our initial assessment of the Localization subsystem seemed to have missed a couple dependencies that are integral to the system. These divergences between the conceptual and concrete architectures have been highlighted below. 
@@ -247,7 +252,7 @@ We modeled sequence diagrams for the same use cases used in our conceptual archi
 <h5 align="center"> <strong> <em> Use Case 1: Turning left when pedestrian runs into street to cross the road </em> </strong> </h5>
 <img src="docs/assets/img9.png" />
 <h5 align="center">
-   <strong> Figure 9 </strong>: Sequence Diagram for Use Case 1.
+   <strong> Figure 9</strong>: Sequence Diagram for Use Case 1.
 </h5>
 The top of the diagram shows the constant events being subscribed to regarding surroundings. Perception is tracking obstacles, and Navigation is tracking position and routing and both are sending these off to their listeners. Once the Perception component sees that the light has turned green, the Planning component is alerted through Perception’s TrafficLightDetection event which tracks traffic lights. Planning generates a plan and sends off an ADC_trajectory event, which Control listens for and formulates into commands, sending it off as a ControlCommand event. The Guardian evaluates the command and sends an all-clear message in the form of a GuardianCommand. 
 
@@ -260,7 +265,7 @@ This diagram is similar to our conceptual version, with some slight changes. Suc
 <h5 align="center"> <strong> <em> Use Case 2: Getting a flat tire while on the road </em> </strong> </h5>
 <img src="docs/assets/img10.png" />
 <h5 align="center">
-   <strong> Figure 10 </strong>: Sequence Diagram for Use Case 2.
+   <strong> Figure 10</strong>: Sequence Diagram for Use Case 2.
 </h5>
 For the second use case, the scenario begins with the vehicle in motion. Throughout the execution of the sequence components are continually being updated as before, with navigating, planning and control events being sent out. The top of the sequence diagram shows the computations continually being performed, with new commands constantly being generated and sent to the CanBus and the Guardian for approval.
 
@@ -662,7 +667,7 @@ of the scheduler, lightweight threads, and resource management. This is depicted
 
 <img src="docs/assets/apollo_cyber.png" />
 <h5 align="center">
-   <strong> Figure 5 </strong>: Centralized and Parallel computing model using Cyber RT Framework [(“Apollo Cyber RT Framework”)](https://apollo.auto/cyber.html).
+  <strong> Figure 5 </strong>: Centralized and Parallel computing model using Cyber RT Framework [(“Apollo Cyber RT Framework”)](https://apollo.auto/cyber.html).
 </h5>
 
 <h4 align="center">
@@ -929,7 +934,7 @@ https://apollo.auto/v2x/index.html.
 
 - [x] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
 - [x] &nbsp; A1: Document the conceptual architechture
-- [ ] &nbsp; A2: Recover the concrete architechture and compare to the conceptual
+- [x] &nbsp; A2: Recover the concrete architechture and compare to the conceptual
 - [ ] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
 
 
