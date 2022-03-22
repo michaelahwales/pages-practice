@@ -37,14 +37,27 @@
 </strong></h5>
 
 <h5 <strong> <ins> Hardware Platform --> Common </ins> </strong></h5>
-<h5 <strong> 1. Hardware Platform/Drivers/Navigation/lidar → Common/common </h5>
+<h5 <strong> 1. Hardware Platform/Drivers/Navigation/lidar --> Common/common </h5>
 
 # <h5 align="center"> <strong> <em> Reflexion: The Cloud Server and the Open Software Platform </em> </strong> </h5>
 <h5 <strong> <ins> Cloud Server <--> Open Software Platform </ins> </strong></h5> 
+<h5 <strong> 1. Cloud/Navigation/map <--> Open Software Platform/planning </h5>
+<h5 <strong> 2. Cloud/Navigation/map --> Open Software Platform/Navigation/routing </h5>
+<h5 <strong> 3. Open Software Platform/Navigation/routing --> Cloud Server/Navigation/map </h5>
+<h5 <strong> 4. Open Software Platform/prediction --> Cloud Server/Navigation/map </h5>
+<h5 <strong> 5. Open Software Platform/perception  --> Cloud/Navigation/map </h5>
+<h5 <strong> 6. Open Software Platform/task_manager --> Cloud Server/Navigation/map </h5>
+<h5 <strong> 7. Open Software Platform/User Interaction/dreamview --> Cloud Server/Navigation/map </h5>
    
 # <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Open Software Platform </em> </strong> </h5>
+<h5 <strong> 1. Open Software Platform/planning --> Open Software Platform/Navigation/routing </h5>
+<h5 <strong> 2. Open Software Platform/planning --> Open Software Platform/Navigation/ localization </h5>
+<h5 <strong> 3. Open Software Platform/planning --> Open Software Platform/User Interaction/dreamview </h5>
+<h5 <strong> 4. Open Software Platform/planning --> Open Software Platform/prediction </h5>
+<h5 <strong> 5. Open Software Platform/control --> Open Software Platform/Navigation/localization </h5>
 
 # <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Hardware Platform </em> </strong> </h5>
+<h5 <strong> 1. Open Software Platform/canbus → Hardware Platform/Drivers/canbus </h5>
 
 ## <h3 align="center"> <strong> INNER SUBSYSTEM: LOCALIZATION </strong> </h3>
 # <h4 align="center"> <em> CONCEPTUAL ARCHITECTURE </em> </h4>
@@ -55,6 +68,13 @@
 # <h5 align="center"> <strong> <em> Conclusions of Concrete Subsystem and Interactions </em> </strong> </h5>
 
 # <h4 align="center"> <em> LOCALIZATION SUBSYSTEM REFLEXION ANALYSIS </em> </h4>
+<h5 <strong> ‘Localization Calculation’ Component </h5>
+<h5 <strong> Localization <--> Drivers </h5>
+<h5 <strong> Localization <-- Map </h5>
+<h5 <strong> Localization <-- Prediction </h5>
+<h5 <strong> Localization <-- Perception </h5>
+<h5 <strong> Localization <-- Planning </h5>
+<h5 <strong> Localization <-- Task Manager </h5>
 
 ## <h3 align="center"> <strong> SEQUENCE DIAGRAMS </strong> </h3>
 # <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
