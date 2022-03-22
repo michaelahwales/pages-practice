@@ -18,15 +18,34 @@
 ### <ins>INTRODUCTION</ins>
 ### <ins>CONCRETE ARCHITECTURE</ins>
 
-## <h3 align="center"> <strong> TOP-LEVEL SUBSYSTEMS </strong> </h3>
-# <h4 align="center"> <em> DERIVATION PROCESS: CONCRETE ARCHITECTURE </em> </h4>
-# <h5 align="center"> <strong> <em> The Mapping Process </em> </strong> </h5>
-# <h5 align="center"> <strong> <em> Handling Bidirectional Dependencies </em> </strong> </h5>
-
-# <h4 align="center"> <em> FINAL CONCRETE ARCHITECTURE </em> </h4>
-# <h4 align="center"> <em> DESCRIPTION OF CONCRETE SUBSYSTEMS AND INTERACTIONS </em> </h4>
-# <h4 align="center"> <em> REFLEXION ANALYSIS </em> </h4>
-# <h5 align="center"> <strong> <em> Reflexion: The Common Subsystem </em> </strong> </h5>
+<h3 align="center"> <strong> TOP-LEVEL SUBSYSTEMS </strong> </h3>
+<h4 align="center"> <em> DERIVATION PROCESS: CONCRETE ARCHITECTURE </em> </h4>
+<h5 align="center"> <strong> <em> The Mapping Process </em> </strong> </h5>
+<img src="docs/assets/img1.png" />
+<h5 align="center">
+   <strong> Figure 1 </strong>: The mapping of source code directories to systems and subsystems in Understand.
+</h5>
+<img src="docs/assets/img2.png" />
+<h5 align="center">
+   <strong> Figure 2 </strong>: The interaction between the high-level directories of the source code, highlighting the connections between subsystems not seen in our conceptual architecture.
+</h5>
+<img src="docs/assets/img3.png" />
+<h5 align="center">
+   <strong> Figure 3 </strong>: The high-level architecture of Apollo Auto in Understand.
+</h5>
+<h5 align="center"> <strong> <em> Handling Bidirectional Dependencies </em> </strong> </h5>
+<h4 align="center"> <em> FINAL CONCRETE ARCHITECTURE </em> </h4>
+<img src="docs/assets/img4.png" />
+<h5 align="center">
+   <strong> Figure 4 </strong>: Dependencies in concrete architecture.
+</h5>
+<h4 align="center"> <em> DESCRIPTION OF CONCRETE SUBSYSTEMS AND INTERACTIONS </em> </h4>
+<h4 align="center"> <em> REFLEXION ANALYSIS </em> </h4>
+<img src="docs/assets/img5.png" />
+<h5 align="center">
+   <strong> Figure 5 </strong>: High-level dependencies of the conceptual and concrete architectures.
+</h5>
+<h5 align="center"> <strong> <em> Reflexion: The Common Subsystem </em> </strong> </h5>
 <h5 <strong> <ins> Common ↔ Cloud Server </ins> </strong></h5>
 <h5 <strong> 1. Cloud Server/Navigation/map → Common/common </strong></h5>
 <h5 <strong> 2. Common/storytelling → Cloud Server/Navigation/map </strong></h5>
@@ -35,11 +54,9 @@
 </h5>
 <h5 <strong> 2. Common/common → Open Software Platform/Navigation/localization
 </strong></h5>
-
 <h5 <strong> <ins> Hardware Platform → Common </ins> </strong></h5>
 <h5 <strong> 1. Hardware Platform/Drivers/Navigation/lidar → Common/common </h5>
-
-# <h5 align="center"> <strong> <em> Reflexion: The Cloud Server and the Open Software Platform </em> </strong> </h5>
+<h5 align="center"> <strong> <em> Reflexion: The Cloud Server and the Open Software Platform </em> </strong> </h5>
 <h5 <strong> <ins> Cloud Server ↔ Open Software Platform </ins> </strong></h5> 
 <h5 <strong> 1. Cloud/Navigation/map ↔ Open Software Platform/planning </h5>
 <h5 <strong> 2. Cloud/Navigation/map → Open Software Platform/Navigation/routing </h5>
@@ -48,26 +65,33 @@
 <h5 <strong> 5. Open Software Platform/perception  → Cloud/Navigation/map </h5>
 <h5 <strong> 6. Open Software Platform/task_manager → Cloud Server/Navigation/map </h5>
 <h5 <strong> 7. Open Software Platform/User Interaction/dreamview → Cloud Server/Navigation/map </h5>
-   
-# <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Open Software Platform </em> </strong> </h5>
+<h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Open Software Platform </em> </strong> </h5>
 <h5 <strong> 1. Open Software Platform/planning → Open Software Platform/Navigation/routing </h5>
 <h5 <strong> 2. Open Software Platform/planning → Open Software Platform/Navigation/ localization </h5>
 <h5 <strong> 3. Open Software Platform/planning → Open Software Platform/User Interaction/dreamview </h5>
 <h5 <strong> 4. Open Software Platform/planning → Open Software Platform/prediction </h5>
 <h5 <strong> 5. Open Software Platform/control → Open Software Platform/Navigation/localization </h5>
-
-# <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Hardware Platform </em> </strong> </h5>
+<h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Hardware Platform </em> </strong> </h5>
 <h5 <strong> 1. Open Software Platform/canbus → Hardware Platform/Drivers/canbus </h5>
-
-## <h3 align="center"> <strong> INNER SUBSYSTEM: LOCALIZATION </strong> </h3>
-# <h4 align="center"> <em> CONCEPTUAL ARCHITECTURE </em> </h4>
-
-# <h4 align="center"> <em> CONCRETE ARCHITECTURE </em> </h4>
-# <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
-# <h5 align="center"> <strong> <em> The Two Methods of Localization - The Main Components of The Subsystem </em> </strong> </h5>
-# <h5 align="center"> <strong> <em> Conclusions of Concrete Subsystem and Interactions </em> </strong> </h5>
-
-# <h4 align="center"> <em> LOCALIZATION SUBSYSTEM REFLEXION ANALYSIS </em> </h4>
+<h3 align="center"> <strong> INNER SUBSYSTEM: LOCALIZATION </strong> </h3>
+<h4 align="center"> <em> CONCEPTUAL ARCHITECTURE </em> </h4>
+<img src="docs/assets/img6.png" />
+<h5 align="center">
+   <strong> Figure 6 </strong>: Conceptual Architecture of Localization Subsystem.
+</h5>
+<h4 align="center"> <em> CONCRETE ARCHITECTURE </em> </h4>
+<h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
+<h5 align="center"> <strong> <em> The Two Methods of Localization - The Main Components of The Subsystem </em> </strong> </h5>
+<h5 align="center"> <strong> <em> Conclusions of Concrete Subsystem and Interactions </em> </strong> </h5>
+<img src="docs/assets/img7.png" />
+<h5 align="center">
+   <strong> Figure 7 </strong>: Interactions Between Components Within the Localization Subsystem.
+</h5>
+<img src="docs/assets/img8.png" />
+<h5 align="center">
+   <strong> Figure 8 </strong>: Concrete Architecture Within the Localization Subsystem.
+</h5>
+<h4 align="center"> <em> LOCALIZATION SUBSYSTEM REFLEXION ANALYSIS </em> </h4>
 <h5 <strong> ‘Localization Calculation’ Component </h5>
 <h5 <strong> Localization ↔ Drivers </h5>
 <h5 <strong> Localization ← Map </h5>
@@ -76,67 +100,28 @@
 <h5 <strong> Localization ← Planning </h5>
 <h5 <strong> Localization ← Task Manager </h5>
 
-## <h3 align="center"> <strong> SEQUENCE DIAGRAMS </strong> </h3>
-# <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
-# <h5 align="center"> <strong> <em> Use Case 1: Turning left when pedestrian runs into street to cross the road </em> </strong> </h5>
-# <h5 align="center"> <strong> <em> Use Case 2: Getting a flat tire while on the road </em> </strong> </h5>
-
-
-### <ins>CONCLUSION</ins>
-## <h3 align="center"> <strong> SUMMARY OF FINDINGS </strong> </h3>
-## <h3 align="center"> <strong> LIMITATIONS AND LESSONS LEARNED </strong> </h3>
-
-### <ins>REFERENCES</ins>
-
-<img src="docs/assets/img1.png" />
-<h5 align="center">
-   <strong> Figure 1 </strong>: The mapping of source code directories to systems and subsystems in Understand.
-</h5>
-
-<img src="docs/assets/img2.png" />
-<h5 align="center">
-   <strong> Figure 2 </strong>: The interaction between the high-level directories of the source code, highlighting the connections between subsystems not seen in our conceptual architecture.
-</h5>
-
-<img src="docs/assets/img3.png" />
-<h5 align="center">
-   <strong> Figure 3 </strong>: The high-level architecture of Apollo Auto in Understand.
-</h5>
-
-<img src="docs/assets/img4.png" />
-<h5 align="center">
-   <strong> Figure 4 </strong>: Dependencies in concrete architecture.
-</h5>
-
-<img src="docs/assets/img5.png" />
-<h5 align="center">
-   <strong> Figure 5 </strong>: High-level dependencies of the conceptual and concrete architectures.
-</h5>
-
-<img src="docs/assets/img6.png" />
-<h5 align="center">
-   <strong> Figure 6 </strong>: Conceptual Architecture of Localization Subsystem.
-</h5>
-
-<img src="docs/assets/img7.png" />
-<h5 align="center">
-   <strong> Figure 7 </strong>: Interactions Between Components Within the Localization Subsystem.
-</h5>
-
-<img src="docs/assets/img8.png" />
-<h5 align="center">
-   <strong> Figure 8 </strong>: Concrete Architecture Within the Localization Subsystem.
-</h5>
-
+<h3 align="center"> <strong> SEQUENCE DIAGRAMS </strong> </h3>
+<h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
+<h5 align="center"> <strong> <em> Use Case 1: Turning left when pedestrian runs into street to cross the road </em> </strong> </h5>
 <img src="docs/assets/img9.png" />
 <h5 align="center">
    <strong> Figure 9 </strong>: Sequence Diagram for Use Case 1.
 </h5>
-
+<h5 align="center"> <strong> <em> Use Case 2: Getting a flat tire while on the road </em> </strong> </h5>
 <img src="docs/assets/img10.png" />
 <h5 align="center">
    <strong> Figure 10 </strong>: Sequence Diagram for Use Case 2.
 </h5>
+
+### <ins>CONCLUSION</ins>
+<h3 align="center"> <strong> SUMMARY OF FINDINGS </strong> </h3>
+<h3 align="center"> <strong> LIMITATIONS AND LESSONS LEARNED </strong> </h3>
+
+### <ins>REFERENCES</ins>
+
+
+
+
 
 # Assignment 1
 ## Conceptual Architecture
