@@ -15,74 +15,182 @@
 ## Report
 
 ### <ins>ABSTRACT</ins>
+Using our conceptual architecture of the Apollo Auto system, Understand by SciTools, and our knowledge of software architecture, this report analyzes the concrete architecture of the Apollo Auto system and one of its subsystems. We started by deriving the concrete architecture, which showed us that we needed to create a top-level subsystem named Common to help organize the data flow.
+
+After finalizing the concrete architecture, we noted that components within each top level subsystem have dependencies to other top level subsystems - there is a lot of communication between subsystems. We first tackled the Common subsystem in the reflexion analysis, which justified its addition to the concrete architecture. Then, we recognized discrepancies found within the Open Software Platform of the concrete architecture and the OSP of the conceptual architecture, all of which were affiliated with the Planning or Localization subsystems.
+
+We then delved into the Localization subsystem, as it performs an important function - estimating the vehicles’ location. This subsystem was only briefly discussed in our conceptual architecture, so the discrepancies found in the reflexion analysis totally outlined the subsystem.  
+Finally, we revisited our use cases from the conceptual architecture, applying our concrete architecture to them. We found that both cases were very similar and had only a few notable differences regarding concurrency and communication.
+
 ### <ins>INTRODUCTION</ins>
+This report aims to explore Apollo’s concrete architecture and the process taken by our team to derive it from our conceptual architecture. The first section of the report will go through this derivation process with explanations for our decision making. The next section will discuss the high level concrete architecture, going through the top-level subsystems and their interactions. In the third section we will dive into a deeper analysis of the inner architecture of the Localization subsystem and its interactions as well. We will then perform reflexion analysis on both the top level architecture and the inner architecture of the Localization subsystem, where we investigate the discrepancies between their conceptual and concrete architectures and provide explanations for these differences. Next we will analyze two sequence diagrams representing non-trivial use cases. Finally, we will conclude with the lessons we’ve learned.
+
+While deriving the conceptual architecture of Apollo Auto in the previous assignment, we discovered that the architecture uses a publish-subscribe style. We have expanded this initial understanding to derive the concrete architecture by investigating the internal dependencies within the system using the Understand tool. We archived subsystems into directories based on our conceptual architecture then iteratively revised this by identifying problem areas within the produced graph representing the internal dependencies. Once we finalized our graph in Understand, we then drew our own diagram to explicitly represent the concrete architecture. We followed a similar process to investigate the architecture of our chosen subsystem, Localization, by deriving a conceptual architecture and analyzing its own internal dependencies to create a concrete architecture. Finally we performed reflexion to analyze the differences between our derived concrete architectures and our previously determined conceptual architectures.
+
+The process of deriving the concrete architecture of both the overall system and the Localization subsystem and performing reflexion allowed us to gain a better understanding of how the subsystems work together to provide the end-result functionality.
+
 ### <ins>CONCRETE ARCHITECTURE</ins>
 
 <h3 align="center"> <strong> TOP-LEVEL SUBSYSTEMS </strong> </h3>
 <h4 align="center"> <em> DERIVATION PROCESS: CONCRETE ARCHITECTURE </em> </h4>
+	As noted in our report on the conceptual architecture of Apollo Auto, the system mainly uses publish-subscribe for data flow. Thus, in order to derive the concrete architecture, we used a combination of the Understand software from Scitools and a mapping of the publish-subscribe calls.
 <h5 align="center"> <strong> <em> The Mapping Process </em> </strong> </h5>
+The first step of the derivation process was to map the source code directories into the subsystems we defined in our conceptual architecture in Understand. We decided to take this approach as building the concrete architecture from scratch would risk ending up with subsystems that are too distinct from those present in the conceptual architecture. This would hamper reflexion analysis by making it difficult to detect added or missing dependencies. Finally, recall that our conceptual architecture was divided into top-level layers; Cloud Server, Open Software, and Hardware [1]. These layers, or systems, are further organized into subsystems, such as “Navigation” and “User Interaction.”
 <img src="docs/assets/img1.png" />
 <h5 align="center">
    <strong> Figure 1 </strong>: The mapping of source code directories to systems and subsystems in Understand.
 </h5>
+First, we mapped the V2X and Map modules into the Cloud Server system, under the “Navigation” subsystem. Next, we mapped modules into the Open Software Platform; these included Perception, Control, Monitor, Prediction, CanBus, Planning, and Guardian. Localization and Routing fell under the “Navigation” subsystem, and Dreamview fell under the “User Interaction” subsystem within the Open Software system. Finally, all the modules in the “drivers” directory in the source code were mapped to the Hardware Platform system, all of which fell under “Navigation” except for the CanBus driver, which is responsible for informing the hardware of control commands but does not collect navigation data like the Camera and Radar do. These configurations were easy to map as the source code directories naturally matched the subsystems we had decided upon for our proposed conceptual architecture.
+
+However, some of the source code needed more consideration. The high-level “cyber” directory as well as the Common, Storytelling, Task Manager, and Tools modules did not appear in our conceptual architecture.
+
 <img src="docs/assets/img2.png" />
 <h5 align="center">
    <strong> Figure 2 </strong>: The interaction between the high-level directories of the source code, highlighting the connections between subsystems not seen in our conceptual architecture.
 </h5>
+To begin, the source code dependencies (Fig. 2) demonstrate a clean split between the “modules” and the "cyber" directory, as files in “modules” depend on the “cyber” directory, but not vice versa. Such a structure is optimal as to avoid bidirectional dependencies that can cause tight coupling. These dependent files span across the Cloud (i.e. modules/map), Hardware (i.e. modules/drivers), and Software (i.e. guardian), suggesting that the “cyber” directory should go in a subsystem in the concrete architecture that could be cleanly accessed by all. Thus, we created a “Common” subsystem in our concrete architecture.
+
+Similarly, Fig. 2 also indicates that the Hardware, Software, and Cloud systems all use the "common" directory, so it should also belong in this "Common" system. This also matches the following description of the directory in the source code README: “[The common] module contains code that is not specific to any module but is useful for the functioning of Apollo” [2].
+
+Next, the Storytelling module allows developers to simulate non-trivial scenarios with Apollo Auto vehicles [3]. Since the modules that subscribe to Storytelling are scenario-specific, the safest and most flexible option would be to place the module in the “Common” system. 
+
+The Task Manager module depends on the Dreamview module in the Open Software subsystem as well as the map in the Cloud subsystem in the layer below. Considering that, in a layered architecture, layers generally serve as a client to the layer below [4], it is feasible to map the Task Manager to the Open Software system.
+
+Finally, the Tools module is not dependent or depended on; however, since the “tools” directory in the source code contains sub-directories that appear to reference modules across subsystems, we reason that the tools are optional but potentially span the entire system. Thus, it belongs in the “Common” subsystem.
+
 <img src="docs/assets/img3.png" />
 <h5 align="center">
    <strong> Figure 3 </strong>: The high-level architecture of Apollo Auto in Understand.
 </h5>
 <h5 align="center"> <strong> <em> Handling Bidirectional Dependencies </em> </strong> </h5>
+After performing this mapping, we observed any unusual-looking dependencies to amend the concrete architecture. In Fig. 3, the red arrows indicate bidirectional dependencies. While bidirectional dependencies are common in software systems, we checked if it was possible to get rid of them and reduce coupling, especially as these dependencies were only the result of one or two files. We also note that these dependencies did not exist in our conceptual architecture. In the end, we determined that each dependency had reason enough to stay, and we refrained from making any other changes. See the reflexion analysis section for an in-depth explanation of each case. 
+
 <h4 align="center"> <em> FINAL CONCRETE ARCHITECTURE </em> </h4>
 <img src="docs/assets/img4.png" />
 <h5 align="center">
    <strong> Figure 4 </strong>: Dependencies in concrete architecture.
 </h5>
+Once we found a way to explain these dependencies, we created two diagrams; one displays the dependencies in Understand and one shows the pub-sub graph of subscribed connections. We decided to separate these to make them easier to read. Note that a “subscription” still counts as a dependency, and both will be considered when performing reflexion analysis.
 <h4 align="center"> <em> DESCRIPTION OF CONCRETE SUBSYSTEMS AND INTERACTIONS </em> </h4>
+Our concrete architecture is divided into four top-level subsystems – the Cloud Server, the Open Software Platform, the Hardware Platform, and the Common subsystem. The main architectural style of the system is publish-subscribe. Where information is not obtained through a pub-sub relationship, it will be noted. 
+
+The Cloud Server subsystem in our concrete architecture corresponds to the Cloud Service Platform of the Apollo system. This subsystem’s functionality is mostly outside of the scope of this project, but there is a bidirectional relationship between components of the Cloud Server subsystem and the Open Software Platform, as well as between the Cloud Server subsystem and the Common subsystem in our concrete architecture. The Open Software subsystem has a bidirectional relationship with components of Common as well as the Cloud Server, and a one way relationship where components of the Open Software Platform depend on the Hardware Platform’s canbus driver components. The Hardware Platform has a one-way dependency on components of Common.
+
+In summary, all three top-level subsystems, Cloud Server, Open Software Platform, and Hardware Platform, depend on components of the Common subsystem. Common has dependencies in Cloud Server and Open Software Platform. Hardware Platform has dependencies in Common, and Software Platform has dependencies in Hardware Platform. 
+
+The Cloud Server subsystem in our concrete architecture contains components of the Navigation subsystem, and provides map information from the HDMap module to the Open Software Platform subsystem (Navigation subsystems are contained in multiple top-level subsystems). Various components of the Open Software Platform query information from the hdmap component, (according to the Apollo 5.5 Software Architecture, instead of publishing and subscribing messages, the hdmap component “frequently functions as query engine support to provide ad-hoc structured information regarding the roads” [5]). The planning, perception, task_manager, prediction, User Interaction, and Routing (component of Open Software/Navigation) all have dependencies upon the hdmap component of Cloud Server. This makes up the majority of the interactions between Open Software Platform and Cloud Server. The only bidirectional dependency between Open Software Platform (OSP) and Cloud Server (CS) is with OSP/planning, which plans the trajectory of the vehicle, CS/Navigation/map depends on flags set in OSP/planning. OSP does not have a direct dependency upon the Hardware Platform subsystem, but it does have a bi-directional dependency relationship on components of the Common subsystem. The utility component of the hdmap subscribes to the storytelling module of common (the storytelling module of common can be subscribed to by all other modules, and manages complex scenarios that require the involvement of multiple modules). The CS subscribes to modules of Common for information on the vehicle state and records from the Common/monitor_log components, which are used to update the vehicle’s position for Navigation.
+
+The Open Software Platform subsystem (OSP) is the largest subsystem of our concrete architecture. It contains components whose purpose is to sense and interpret the environment around the autonomous vehicle. The most important dependency that the OSP has on the Hardware Platform subsystem is on Hardware Platform/Drivers/canbus, where information on the vehicle’s chassis is passed from the Hardware Platform to the OSP. As discussed in the paragraph above, the OSP and the CS subsystems depend on one another for information about the map to manage navigation-related services. The majority of the OSP’s dependencies are between itself and the Common subsystem are subscriptions from the various components of the OSP to Common components such as vehicle status, as well as important inclusion relationships such as Common/common/math. Common and OSP/Navigation share a bi-directional dependency, between Common/vehicle_state and Open Software Platform/Navigation/ localization.
+
+The Hardware System contains components that describe the hardware of the vehicle itself and contains information from the vehicles’ sensors. The greatest number of dependencies in our concrete architecture exists between the OSP subsystem and the Hardware Platform subsystem, where OSP/canbus subscribes to information provided by Hardware Platform/Drivers/canbus/common, in particular byte.cc and byte.h. The CanBus is the interface that passes control commands to the vehicle hardware, so these dependencies represent the passing of control commands from the Hardware Platform from the OSP. Finally, the Hardware system subscribes to Common/common/monitor_log in its radar and gnss modules for Navigation purposes. 
+
+The Common subsystem contains components that are accessed by all other top-level subsystems. It contains the common sub-subsystem, which contains information used across the system, storytelling, which handles complex scenarios involving multiple modules, and cyber, which is Apollo’s runtime framework for autonomous driving. 
+
 <h4 align="center"> <em> REFLEXION ANALYSIS </em> </h4>
 <img src="docs/assets/img5.png" />
 <h5 align="center">
    <strong> Figure 5 </strong>: High-level dependencies of the conceptual and concrete architectures.
 </h5>
+In this section, we will analyze the differences between our conceptual architecture and our concrete architecture, using Figure 5 for high-level analysis and Figure 4 for lower-level analysis.
 <h5 align="center"> <strong> <em> Reflexion: The Common Subsystem </em> </strong> </h5>
 <h5 <strong> <ins> Common ↔ Cloud Server </ins> </strong></h5>
 <h5 <strong> 1. Cloud Server/Navigation/map → Common/common </strong></h5>
+Files used: box2d.h, line_segment2d.h, vec2d.h  
+Explanation: While approximating the path, path.h uses the LineSegment2d type from common to calculate the maximum error.
+
 <h5 <strong> 2. Common/storytelling → Cloud Server/Navigation/map </strong></h5>
+Files used: hdmap_util.h  
+Explanation: In close_to_junction_teller.cc, map information is used to get information on stop signs, yield signs, crosswalks, etc, which is crucial for allowing the Storyteller module to go through complex scenarios. For example, from the name of the file/main function CloseToJunctionTeller, it appears that Apollo Auto is creating a story to test functionality for detecting and operating at junctions
+
 <h5 <strong> <ins> Common ↔ Open Software Platform </ins> </strong></h5>
+Files used: local ization_gflags.h  
+Explanation: vehicle_state_provider.cc provides the current status of the vehicle state, a piece of data that would be useful to a variety of modules to easily access (and thus should go in a “Common” subsystem). However, localization is needed to do this, so the dependency is necessary. The second dependency comes from a testing file for the vehicle state provider.
+
 <h5 <strong> 1. Open Software Platform/planning → Common/common
 </h5>
+Files used: util.h, pnc_point.pb.h, vehicle_state_provider.h  
+Explanation: When Planning enforces traffic rules at a crosswalk, it utilizes the mathematical functions available in common such as Vec2D to, for example, calculate the velocity of incoming pedestrians and stop the vehicle if they are headed in the vehicle’s direction.
+
 <h5 <strong> 2. Common/common → Open Software Platform/Navigation/localization
 </strong></h5>
 <h5 <strong> <ins> Hardware Platform → Common </ins> </strong></h5>
 <h5 <strong> 1. Hardware Platform/Drivers/Navigation/lidar → Common/common </h5>
+Files used: adapter_gflags.h, latency_recorder.h  
+Explanation: compensator_component.cc uses a latency recorder from latency_recorder.h to log latency records when compensating for motion with the LiDAR.
 <h5 align="center"> <strong> <em> Reflexion: The Cloud Server and the Open Software Platform </em> </strong> </h5>
 <h5 <strong> <ins> Cloud Server ↔ Open Software Platform </ins> </strong></h5> 
 <h5 <strong> 1. Cloud/Navigation/map ↔ Open Software Platform/planning </h5>
+Files used: planning_gflags.h  
+Explanation: pnc_map.cc uses planning “flags” from planning_gflags.h when updating the vehicle state in conjunction with information on nearby routing waypoints to determine if the vehicle’s next move needs to be re-planned. This is likely to deal with situations in which the vehicle goes off the map or disconnects and needs to reorient itself.
+
 <h5 <strong> 2. Cloud/Navigation/map → Open Software Platform/Navigation/routing </h5>
+Files used: routing_gflags.h  
+Explanation: pnc_map.cc uses routing “flags” from routing_gflags.h to update the routing range, find the next routing waypoint from the vehicle’s current position, validate the routing chosen, and more, all of which are crucial to keeping the vehicle on track.
+   
 <h5 <strong> 3. Open Software Platform/Navigation/routing → Cloud Server/Navigation/map </h5>
+Files used: hdmpa_util.h, opendrive_adapter.h  
+Explanation: Routing includes the same header file. Looking at the commit history, we can see that this is needed to optimize the prototype of the map.
+
 <h5 <strong> 4. Open Software Platform/prediction → Cloud Server/Navigation/map </h5>
+Files used: hdmap_common.h, hdmap_util.h, path.h  
+Explanation: The prediction module uses the map to retrieve information on the vehicle’s surroundings and make decisions surrounding issues such as lane changing.
+
 <h5 <strong> 5. Open Software Platform/perception  → Cloud/Navigation/map </h5>
+Files used: hdmap.h, hdmap_common.h, hdmap_util.h  
+Explanation: Perception uses HDMapUtil as input and uses it as a base map to build off of using additional perception functionality.
+
 <h5 <strong> 6. Open Software Platform/task_manager → Cloud Server/Navigation/map </h5>
+Files used: hdmap.h, hdmap_common.h, hdmap_util.h  
+Explanation: The task manager needs to access the map in the Cloud Server to get info on parking spaces.
+
 <h5 <strong> 7. Open Software Platform/User Interaction/dreamview → Cloud Server/Navigation/map </h5>
+Files used: hdmap_util.h  
+Explanation: Dreamview needs to access the map in the Cloud Server to get waypoints that it can use in calculations to update the simulated world.
+
 <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Open Software Platform </em> </strong> </h5>
+Although our conceptual architecture includes several interdependencies within the Open Software Platform, there were a few that we missed - mostly in relation to the subsystems within Navigation. For example, we anticipated Planning’s dependency on Control but did not expect its connections to the subsystems within the Navigation directory or its bidirectional dependency on Prediction. We also did not include Control’s dependency on the Localization subsystem within Navigation. See detailed explanations of these dependencies below. 
+
 <h5 <strong> 1. Open Software Platform/planning → Open Software Platform/Navigation/routing </h5>
+File used: routing_gflags.h  
+Explanation: Planning depends on routing to make decisions about changing lanes and retrieve information about the vehicle’s current state.
+
 <h5 <strong> 2. Open Software Platform/planning → Open Software Platform/Navigation/ localization </h5>
+Files used: localization_gflags.h  
+Explanation: Planning takes localization as an input and uses it to make decisions about possible obstacles and pathing.
+
 <h5 <strong> 3. Open Software Platform/planning → Open Software Platform/User Interaction/dreamview </h5>
+Files used: map_service.h  
+Explanation: Planning uses the map service from the dreamview module in its decision making surrounding open space available to the vehicle. 
+
 <h5 <strong> 4. Open Software Platform/planning → Open Software Platform/prediction </h5>
+Files used: net_model.h, data_extraction.h  
+Explanation: Planning uses prediction to include information on possible obstacles it will need to avoid in its planning, and for autotuning purposes.
+
 <h5 <strong> 5. Open Software Platform/control → Open Software Platform/Navigation/localization </h5>
+Files used: localization_gflags.h  
+Explanation: Control uses localization to get the coordinates of the vehicle’s position which it uses in its algorithms to ensure smooth driving.
+
 <h5 align="center"> <strong> <em> Reflexion: Other Unexpected Dependencies with the Hardware Platform </em> </strong> </h5>
 <h5 <strong> 1. Open Software Platform/canbus → Hardware Platform/Drivers/canbus </h5>
+Files used: byte.h  
+Explanation: The CanBus software depends on the CanBus driver to access a Byte class, which allows for easy translation to bytes when calculating brake commands.
+
 <h3 align="center"> <strong> INNER SUBSYSTEM: LOCALIZATION </strong> </h3>
 <h4 align="center"> <em> CONCEPTUAL ARCHITECTURE </em> </h4>
+We recognized in our conceptual architecture that the goal of the localization subsystem is to find the vehicle’s exact location. Our conceptual view of the localization subsystem was very high level. We noted major interactions of the subsystem with the rest of the system, but neglected to analyze the inner architecture [5]. As this subsystem is in charge of estimating localization, and most of its input is from other subsystems, the conceptual architecture is very simple. It would be a simple pipe and filter consisting of a “Localization Calculator” component filter, which takes the input from subsystems Localization is subscribed to, and then sends it to a “Common” component filter which publishes it to other subsystems. See Figure 6 for the conceptual architecture of the localization subsystem.
 <img src="docs/assets/img6.png" />
 <h5 align="center">
    <strong> Figure 6 </strong>: Conceptual Architecture of Localization Subsystem.
 </h5>
 <h4 align="center"> <em> CONCRETE ARCHITECTURE </em> </h4>
 <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
+Deriving the concrete architecture using Understand and GitHub unveiled lots of information and realizations about the localization subsystem. We discovered that the subsystem has two independent methods of calculating localization - OnTimer (rtk) and Multiple SensorFusion (msf). We found that our chosen subsystem has a high amount of interaction with the other subsystems, and not a lot of interaction between its own components [5]. This being said, the conceptual architecture described above would not thoroughly represent the subsystem. To explain the concrete inner architecture, the main components must first be described.
+
 <h5 align="center"> <strong> <em> The Two Methods of Localization - The Main Components of The Subsystem </em> </strong> </h5>
+OnTimer (rtk) is a method of localization based in real-time. This method utilizes data from the GPS and IMU as input, which are found in the “open software system” layer. OnTimer takes advantage of the rtk directory found within the localization subsystem. This directory consists of files that execute the real time kinematics and subsequently provide a very accurate location [6]. The multiple sensor fusion (msf) method uses the GPS, IMU, and LiDAR data as inputs, and estimates a location [7]. This method takes advantage of the msf directory, which contains files that execute msf localization. There are additional directories consisting of files which send the GPS, IMU, and LiDAR data to the msf calculations. There is an additional method which isn’t fully developed yet according to the github, called ndt. The ndt directory would have similar functionality to the rtk and msf directories, meaning that it computes a location estimate [8].
+
 <h5 align="center"> <strong> <em> Conclusions of Concrete Subsystem and Interactions </em> </strong> </h5>
+The understand file of the concrete architecture depicts the dependencies of the localization subsystem (see Figure 6). It demonstrates that within the localization subsystem the Common component is in charge of connecting the dots. The components rtk and msf (and ndt if it were fully functional) independently compute localization estimates, and send them to the Common component. Due to the independent nature of the subsystem’s components, it resembles a pipe and filter style. The localization method components (rtk, msf, and ndt) and the Common component would be the filters connected by pipes that determine where they send and get their information. A diagram representing the architecture can be seen in Figure 7. 
 <img src="docs/assets/img7.png" />
 <h5 align="center">
    <strong> Figure 7 </strong>: Interactions Between Components Within the Localization Subsystem.
@@ -92,35 +200,78 @@
    <strong> Figure 8 </strong>: Concrete Architecture Within the Localization Subsystem.
 </h5>
 <h4 align="center"> <em> LOCALIZATION SUBSYSTEM REFLEXION ANALYSIS </em> </h4>
+Our initial assessment of the Localization subsystem seemed to have missed a couple dependencies that are integral to the system. These divergences between the conceptual and concrete architectures have been highlighted below. 
 <h5 <strong> ‘Localization Calculation’ Component </h5>
+This was a component we included in the conceptual architecture that does not actually exist in the system on reflection. While we had initially included it to handle localization related calculations, we were able to see that 3 independent components- namely msf, rtk, and ndt- took over this role instead. This is partly the reason for some other divergences that follow as well.      
+
 <h5 <strong> Localization ↔ Drivers </h5>
+Although we anticipated that the Driver would be listening to the LocalizationEstimate from the Localization subsystem, we failed to observe that this subsystem would then be subscribed back for the FnssBestPose, PointCloud, CorrectedImu, InsStat, along with RawData. This is necessary for the Driver to be able to relay this for control and management to the lower-level linked components. It’s therefore justified.
+
 <h5 <strong> Localization ← Map </h5>
+The Map requires the LocalizationEstimate from the Localization subsystem as well in order to constantly update the current location, so this is justified and something we overlooked in our conceptual architecture.
+
 <h5 <strong> Localization ← Prediction </h5>
+The Prediction component also depends on the LocalizationEstimate from this subsystem in order to factor into calculations for any future actions. This dependency is therefore logical and justified.
+
 <h5 <strong> Localization ← Perception </h5>
+The LocalizationEstimate needs to be relayed to the Perception component as well, for being able to properly map the car to its external surroundings. We had already correctly identified this in our initial conceptual architecture.
+
 <h5 <strong> Localization ← Planning </h5>
+The Planning component listens for the LocalizationEstimate as well. Similar to the Perception component, this is necessary to factor into calculations for planning any next routing moves by the system, and had been overlooked by us initially but is justified.
+
 <h5 <strong> Localization ← Task Manager </h5>
+The Localization component also has the Task Manager subscribed to it for the LocalizationEstimate as well. This is in place to be able to then help with routing, which is clearly justified.
 
 <h3 align="center"> <strong> SEQUENCE DIAGRAMS </strong> </h3>
 <h5 align="center"> <strong> <em> Overview </em> </strong> </h5>
+We modeled sequence diagrams for the same use cases used in our conceptual architecture report in order to see how the real execution differs from our conceptual understanding. 
+
 <h5 align="center"> <strong> <em> Use Case 1: Turning left when pedestrian runs into street to cross the road </em> </strong> </h5>
 <img src="docs/assets/img9.png" />
 <h5 align="center">
    <strong> Figure 9 </strong>: Sequence Diagram for Use Case 1.
 </h5>
+The top of the diagram shows the constant events being subscribed to regarding surroundings. Perception is tracking obstacles, and Navigation is tracking position and routing and both are sending these off to their listeners. Once the Perception component sees that the light has turned green, the Planning component is alerted through Perception’s TrafficLightDetection event which tracks traffic lights. Planning generates a plan and sends off an ADC_trajectory event, which Control listens for and formulates into commands, sending it off as a ControlCommand event. The Guardian evaluates the command and sends an all-clear message in the form of a GuardianCommand. 
+
+Once CanBus listens to the GuardianCommand, it executes the command through the vehicle, using the CanBus driver to start a left turn through the intersection. While the vehicle is performing the turn, Prediction sends off a PredictionObstacles event warning of a potential collision with a pedestrian determined using the constant updates provided by Perception, as listed at the top of the diagram. Once Monitor is alerted of this suspected collision, Monitor relays the information in the form of a SystemStatus event to Guardian and the Dreamview component, which in turn displays the concern to the driver.
+
+	Once the driver is alerted, either they will take over and stop the vehicle, or the guardian prevents further commands from going through, allowing the car to slow down, until 10 seconds have passed without the driver intervening. If 10 seconds have passed, Guardian will alert the CanBus to perform an emergency stop, causing the vehicle to brake hard and come to a stop. 
+   
+This diagram is similar to our conceptual version, with some slight changes. Such as multiple components listening to the same event, allowing for more agency and concurrency across components. As well, there are subtle differences such as Planning listening directly to Perception for updates rather than getting its updates from Prediction.
+
 <h5 align="center"> <strong> <em> Use Case 2: Getting a flat tire while on the road </em> </strong> </h5>
 <img src="docs/assets/img10.png" />
 <h5 align="center">
    <strong> Figure 10 </strong>: Sequence Diagram for Use Case 2.
 </h5>
+For the second use case, the scenario begins with the vehicle in motion. Throughout the execution of the sequence components are continually being updated as before, with navigating, planning and control events being sent out. The top of the sequence diagram shows the computations continually being performed, with new commands constantly being generated and sent to the CanBus and the Guardian for approval.
+
+	Suddenly one of the tires pops and the CanBus relays this to the monitor through one of its ChassisDetails events, informing it of the hardware error. The monitor subsequently alerts both the Guardian and the Dreamview which in turn alerts the driver. From this point either the driver will respond and bring the vehicle to a safe stop, or the Guardian will take over. If the driver fails to respond, the Guardian will attempt to bring the car to a safe stop. The Guardian receives information from the Monitor to learn about its surroundings and if the sensors are functioning and there are no obstacles, it alerts the CanBus to bring the vehicle to a slow stop. Otherwise if it can’t confirm that a slow stop is possible, it will alert the CanBus to perform an emergency stop. Again, the main difference with this sequence diagram compared to our conceptual version is the increased concurrency provided by multiple subscriptions to the events. Some of the interactions are slightly different as covered in other parts of the report, but for the most part, the logic underlying the execution is essentially the same.
 
 ### <ins>CONCLUSION</ins>
 <h3 align="center"> <strong> SUMMARY OF FINDINGS </strong> </h3>
+Through the report, our team was able to get a deeper understanding of Apollo’s concrete framework and the rationale behind many design decisions that would have otherwise remained unclear. We were able to identify the 4 main subsystems: the Cloud Server, the Open Software Platform, the Hardware Platform and the Common subsystem. The last of which we had overlooked in our conceptual perspective. Our familiarity of the Understand software was able to grow in parallel and through the use of it we were able to find the missing ‘cyber’ directory, and the Common, Storytelling, Task Manager, and Tools modules as well.
+
 <h3 align="center"> <strong> LIMITATIONS AND LESSONS LEARNED </strong> </h3>
+There are only a few limitations to the architecture Apollo Auto uses. For instance, using Publish-Subscribe with multiple components listening to the same events and working simultaneously introduces race condition concerns, so they must consider that when making changes. The open-source nature of the project also introduces unique challenges of having to be very selective and rigorous in choosing what commits to pull, since it isn't just a dedicated, trusted team working on it all together. Finally, it is dangerous having a "common" grouping in the architecture since it is not well defined and developers might be tempted to throw anything in there, even if it would fit better in other places.
+	Although there was a clean split in the source code from ‘module’ and ‘cyber’ in order to avoid bidirectional dependencies that can cause tight coupling, we learned that some connections between subsystems may prove necessary if there are solid justifications. In addition, we also learned of the importance of factoring in concurrency and communication in our Use Cases even if they don’t seem blatantly obvious. Finally, we learned that our initial conceptual architecture attempt was not detailed enough, and now know to focus more on subsystem interactions in the future.
 
 ### <ins>REFERENCES</ins>
+[1] “Apollo Open Platform,” Apollo Auto, 2020. [Online]. Available: https://apollo.auto/developer.html. [Accessed: 21-Mar-2022]. 
 
+[2] ApolloAuto, “Common - Module,” GitHub, 01-Sep-2020. [Online]. Available: https://github.com/ApolloAuto/apollo/blob/master/modules/common/README.md. [Accessed: 21-Mar-2022]. 
 
+[3] ApolloAuto, “Storytelling,” GitHub, 15-Mar-2022. [Online]. Available: https://github.com/ApolloAuto/apollo/tree/master/modules/storytelling. [Accessed: 21-Mar-2022]. 
 
+[4] B. Adams, “Module 3: Architecture Styles,” Queen’s University, 2022.
+
+[5] ApolloAuto, “Apollo 5.5 Software Architecture,” GitHub, 03-Jan-2020. [Online]. Available: https://github.com/ApolloAuto/apollo/blob/master/docs/specs/Apollo_5.5_Software_Architecture.md. [Accessed: 21-Mar-2022]. 
+
+[6] G. Wan, X. Yang, R. Cai, H. Li, Y. Zhou, H. Wang, and S. Song, “Robust and precise vehicle localization based on multi-sensor fusion in diverse city scenes,” 2018 IEEE International Conference on Robotics and Automation (ICRA), 2018. 
+
+[7] Z. Wang, Y. Wu, and Q. Niu, “Multi-sensor fusion in Automated Driving: A survey,” IEEE Xplore, 2018. [Online]. Available: https://ieeexplore.ieee.org/document/8943388. [Accessed: 21-Mar-2022].
+
+[8] ApolloAuto, “Localization,” GitHub, 01-Jul-2021. [Online]. Available: https://github.com/ApolloAuto/apollo/tree/master/modules/localization. [Accessed: 21-Mar-2022]. 
 
 
 # Assignment 1
