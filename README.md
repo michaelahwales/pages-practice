@@ -601,15 +601,18 @@ implementation is not a small undertaking, and requires a lot of analysis and di
 ### <strong>REFERENCES</strong>
 [1] “In which cities are cars most likely to be stolen?,” Insurify, 16-Mar-2022. [Online].
 Available: https://insurify.com/insights/cities-most-stolen-cars-2022/. [Accessed:
-10-Apr-2022].
+10-Apr-2022].  
+
 [2] “Fingerprint Recognition for the Car: Use Cases and Design Considerations,” Electronic
 Design, 23-Dec-2019. [Online]. Available:
 https://www.electronicdesign.com/markets/automotive/article/21119162/fingerprint-recog
-nition-for-the-car-use-cases-and-design-considerations. [Accessed: 10-Apr-2022].
+nition-for-the-car-use-cases-and-design-considerations. [Accessed: 10-Apr-2022].  
+
 [3] M. Gudino, “How Do Fingerprint Scanners Work? Optical vs. Capacitive,” Arrow,
 08-Jun-2020. [Online]. Available:
 https://www.arrow.com/en/research-and-events/articles/how-fingerprint-sensors-work.
-[Accessed: 09-Apr-2022].
+[Accessed: 09-Apr-2022].  
+
 
 # Assignment 2
 ## Concrete Architecture
