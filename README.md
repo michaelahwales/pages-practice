@@ -403,7 +403,8 @@ Impact: Create the directory fingerprint_database under Cloud Server
 
 Explanation: Although the database would be stored on the cloud, the new directory in
 Cloud Server would need to be created in order to query the database, similar to how the
-map and v2x directories are used to query map and location information from the vehicle.
+map and v2x directories are used to query map and location information from the vehicle.  
+
 Open Software Platform ↔ Hardware Platform  
 
 1. CanBus → Key Detector  
@@ -455,7 +456,8 @@ Explanation: This new file is needed in the Dreamview to display to the user the
 frequently visited locations so that the user has customized travel options once they “sign
 in” with their fingerprint.  
 
-<h4>Strengthened Dependencies (Black Arrows in Fig. 2)</h4>
+<h4>Strengthened Dependencies (Black Arrows in Fig. 2)</h4>  
+
 Open Software Platform → Hardware Platform  
 
 1. CanBus → CanBus Driver  
