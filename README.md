@@ -8,6 +8,14 @@
 - Michaelah Wales
 - Hannah Weider
 
+# Assignment 3
+## Proposed Enhancement
+## Presentation
+[Click here to view presentation.](https://youtu.be/zxaNE-VZ0d4)
+## Report
+
+
+
 # Assignment 2
 ## Concrete Architecture
 ## Presentation
@@ -935,7 +943,7 @@ https://apollo.auto/v2x/index.html.
 - [x] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
 - [x] &nbsp; A1: Document the conceptual architechture
 - [x] &nbsp; A2: Recover the concrete architechture and compare to the conceptual
-- [ ] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
+- [x] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
 
 
 ## Project Mark Breakdown:
