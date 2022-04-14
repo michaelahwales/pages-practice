@@ -385,8 +385,9 @@ As seen in Fig. 2, the green components represent new components that would have
 created to support our enhancement. These include a Fingerprint Database in the Cloud Server, a
 mobile App, and two fingerprint sensors in the hardware layer -- Ignition FPS, and Unlocking
 FPS. The enhancement also spawned new dependencies (depicted in red) as well as reinforced
-existing ones (depicted in black).
-<h4>New Dependencies (Red Arrows in Fig. 2)</h4>
+existing ones (depicted in black).  
+
+<h4>NEW DEPENDENCIES (RED ARROWS IN FIG. 2)</h4>
 
 #### Open Software Platform ↔ Cloud Server  
 
@@ -456,7 +457,7 @@ Explanation: This new file is needed in the Dreamview to display to the user the
 frequently visited locations so that the user has customized travel options once they “sign
 in” with their fingerprint.  
 
-<h4>Strengthened Dependencies (Black Arrows in Fig. 2)</h4>  
+<h4>STRENGTHENED DEPENDENCIES (BLACK ARROWS IN FIG. 2)</h4>  
 
 #### Open Software Platform → Hardware Platform  
 
