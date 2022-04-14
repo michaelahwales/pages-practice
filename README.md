@@ -388,7 +388,7 @@ FPS. The enhancement also spawned new dependencies (depicted in red) as well as 
 existing ones (depicted in black).
 <h4>New Dependencies (Red Arrows in Fig. 2)</h4>
 
-Open Software Platform ↔ Cloud Server  
+#### Open Software Platform ↔ Cloud Server  
 
 1. App → Monitor  
 
@@ -405,7 +405,7 @@ Explanation: Although the database would be stored on the cloud, the new directo
 Cloud Server would need to be created in order to query the database, similar to how the
 map and v2x directories are used to query map and location information from the vehicle.  
 
-Open Software Platform ↔ Hardware Platform  
+#### Open Software Platform ↔ Hardware Platform  
 
 1. CanBus → Key Detector  
 
@@ -445,7 +445,7 @@ above)
 ○ Create the directory unlocking_fps under Hardware Platform/User Interaction
 Explanation: Same as above; repeat for the Unlocking FPS.  
 
-Connections within Open Software Platform  
+#### Connections within Open Software Platform  
 
 1. Routing → Dreamview/HMI  
 
@@ -458,7 +458,7 @@ in” with their fingerprint.
 
 <h4>Strengthened Dependencies (Black Arrows in Fig. 2)</h4>  
 
-Open Software Platform → Hardware Platform  
+#### Open Software Platform → Hardware Platform  
 
 1. CanBus → CanBus Driver  
 
@@ -476,7 +476,7 @@ start the ignition, and activate the user’s preferences (i.e. change the music
 and/or adjust the seating position) so that the CanBus can set these into motion once the
 user “signs in” with their fingerprint.  
 
-Connections within Open Software Platform  
+#### Connections within Open Software Platform  
 
 1. Monitor → CanBus  
 
