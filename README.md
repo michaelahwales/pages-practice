@@ -9,12 +9,25 @@
 - Hannah Weider
 
 # Assignment 3
-## Proposed Enhancement
+## Architecture Enhancement
 ## Presentation
-[Click here to view presentation.](https://youtu.be/zxaNE-VZ0d4)
+[Click here to view presentation.](https://www.youtube.com/watch?v=zxaNE-VZ0d4)
 ## Report
-
-
+<img src="docs/assets/a3fig1.png" />
+<h5 align="center">
+   <strong> Figure 1</strong>: Depicts the connections required as a result of our enhancement. Note that a black
+arrow indicates that the dependency at this level already existed in our updated architecture
+(from Assignment 2) and a red arrow indicates that a new dependency was formed. A new
+diagram was used so the new connections would be easier to see.
+</h5>
+<img src="docs/assets/a3fig2.png" />
+<h5 align="center">
+   <strong> Figure 2</strong>: Use case 1: Setting a new fingerprint, then unlocking and starting the car using it
+</h5>
+<img src="docs/assets/a3fig3.png" />
+<h5 align="center">
+   <strong> Figure 3</strong>: Use case 2: Someone trying to break into a car, getting a false positive on the fingerprint scanner.
+</h5>
 
 # Assignment 2
 ## Concrete Architecture
@@ -943,7 +956,7 @@ https://apollo.auto/v2x/index.html.
 - [x] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
 - [x] &nbsp; A1: Document the conceptual architechture
 - [x] &nbsp; A2: Recover the concrete architechture and compare to the conceptual
-- [x] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
+- [ ] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
 
 
 ## Project Mark Breakdown:
