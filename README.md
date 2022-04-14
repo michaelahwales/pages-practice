@@ -387,73 +387,73 @@ mobile App, and two fingerprint sensors in the hardware layer -- Ignition FPS, a
 FPS. The enhancement also spawned new dependencies (depicted in red) as well as reinforced
 existing ones (depicted in black).
 <h4>New Dependencies (Red Arrows in Fig. 2)</h4>
-Open Software Platform ↔ Cloud Server
-1. App → Monitor
-Impact: Create the file notify_app.cc under Open Software Platform/monitor
+Open Software Platform ↔ Cloud Server  
+1. App → Monitor  
+Impact: Create the file notify_app.cc under Open Software Platform/monitor  
 Explanation: A new file would have to be created under monitor to handle notifying the
-mobile app in case an intruder attempts to break into the vehicle.
-2. CanBus → Fingerprint Database
-Impact: Create the directory fingerprint_database under Cloud Server
+mobile app in case an intruder attempts to break into the vehicle.  
+2. CanBus → Fingerprint Database  
+Impact: Create the directory fingerprint_database under Cloud Server  
 Explanation: Although the database would be stored on the cloud, the new directory in
 Cloud Server would need to be created in order to query the database, similar to how the
 map and v2x directories are used to query map and location information from the vehicle.
-Open Software Platform ↔ Hardware Platform
-1. CanBus → Key Detector
-Impact:
-○ Create the directory key_detector under Hardware Platform/Drivers
-○ Create the file retrieve_key_status.cc under Open Software Platform/canbus
+Open Software Platform ↔ Hardware Platform  
+1. CanBus → Key Detector  
+Impact:  
+○ Create the directory key_detector under Hardware Platform/Drivers  
+○ Create the file retrieve_key_status.cc under Open Software Platform/canbus  
 Explanation: A new key_detector directory would have to be created to integrate the
 driver for the Key Detector software. Since CanBus subscribes to this component to
 know if the user’s key is in the vicinity before querying the Fingerprint Database, it needs
-the file retrieve_key_status.cc to handle this functionality.
-2. CanBus ↔ Unlocking FPS
-Impact:
-○ Create the file take_fps_input.cc under Open Software Platform/canbus
-○ Create the directory ignition_fps under Hardware Platform/User Interaction
+the file retrieve_key_status.cc to handle this functionality.  
+2. CanBus ↔ Unlocking FPS  
+Impact:  
+○ Create the file take_fps_input.cc under Open Software Platform/canbus  
+○ Create the directory ignition_fps under Hardware Platform/User Interaction  
 Explanation: A new file in the canbus directory would have to be created to retrieve the
 digital image output by the fingerprint sensors and pass these to the Cloud Server
 directory which would query the database in the cloud. Additionally, a new directory
 would have to be created within the Hardware Platform to handle user interaction with
 the fingerprint sensors (displaying whether the authentication passed or not, converting
-the analog data to digital data, etc.)
-3. CanBus ↔ Ignition FPS
-Impact:
+the analog data to digital data, etc.)  
+3. CanBus ↔ Ignition FPS  
+Impact:  
 ○ Create the file take_fps_input.cc under Open Software Platform/canbus (done
-above)
+above)  
 ○ Create the directory unlocking_fps under Hardware Platform/User Interaction
-Explanation: Same as above; repeat for the Unlocking FPS.
-Connections within Open Software Platform
-1. Routing → Dreamview/HMI
+Explanation: Same as above; repeat for the Unlocking FPS.  
+Connections within Open Software Platform  
+1. Routing → Dreamview/HMI  
 Impact: Create a file display_potential_locations.cc under Open Software Platform/User
-Interaction/dreamview/backend/map
+Interaction/dreamview/backend/map  
 Explanation: This new file is needed in the Dreamview to display to the user their most
 frequently visited locations so that the user has customized travel options once they “sign
-in” with their fingerprint.
+in” with their fingerprint.  
 
 <h4>Strengthened Dependencies (Black Arrows in Fig. 2)</h4>
 Open Software Platform → Hardware Platform
-1. CanBus → CanBus Driver
-Impact:
-○ Create the directory unlock under Hardware Platform/Drivers/canbus
-○ Create the directory ignition under Hardware Platform/Drivers/canbus
+1. CanBus → CanBus Driver  
+Impact:  
+○ Create the directory unlock under Hardware Platform/Drivers/canbus  
+○ Create the directory ignition under Hardware Platform/Drivers/canbus  
 ○ Create the directory activate_preferences under Hardware Platform/Drivers/
-canbus
+canbus  
 Explanation: The CanBus Driver needs to add the driver functionalities to unlock the car,
 start the ignition, and activate the user’s preferences (i.e. change the music, heating,
 and/or adjust the seating position) so that the CanBus can set these into motion once the
-user “signs in” with their fingerprint.
-Connections within Open Software Platform
-1. Monitor → CanBus
-Impact: Create the file retrieve_preferences.cc under Open Software Platform/monitor
+user “signs in” with their fingerprint.  
+Connections within Open Software Platform  
+1. Monitor → CanBus  
+Impact: Create the file retrieve_preferences.cc under Open Softwar  e Platform/monitor  
 Explanation; The Monitor component needs a file with the functionality to retrieve user
 location preferences from the CanBus after the CanBus queries the Fingerprint Database
 (which also holds information on user preferences). The Monitor needs user location
-preferences so that it can be easily accessed by Dreamview.
-2. Dreamview → Monitor
+preferences so that it can be easily accessed by Dreamview.  
+2. Dreamview → Monitor  
 Impact: Create a new file retrieve_preferences.cc under Open Software Platform/User
-Interaction/dreamview
+Interaction/dreamview  
 Explanation; The Dreamview component needs a file with the functionality to retrieve
-user location preferences from the Monitor so that it can display them to the user.
+user location preferences from the Monitor so that it can display them to the user.  
 
 <h4 align="center"> <strong> HIGH-LEVEL AND ARCHITECTURAL STYLE CHANGES </strong> </h4>
 Looking at the figure of our updated architecture from our last report, we can see that no
