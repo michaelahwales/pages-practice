@@ -1541,7 +1541,7 @@ https://apollo.auto/v2x/index.html.
 - [x] &nbsp; A0: Create a group of 6 (on OnQ) and group website 
 - [x] &nbsp; A1: Document the conceptual architechture
 - [x] &nbsp; A2: Recover the concrete architechture and compare to the conceptual
-- [ ] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
+- [x] &nbsp; A3: Propose an enhancement, then propose and compare 2 designs / implementation plans
 
 
 ## Project Mark Breakdown:
